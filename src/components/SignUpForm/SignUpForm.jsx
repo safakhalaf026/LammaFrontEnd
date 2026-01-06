@@ -1,3 +1,4 @@
+// Safa Khalaf
 import { useState,useContext } from 'react';
 import { useNavigate } from 'react-router';
 import * as authService from '../../services/authService'
@@ -10,9 +11,14 @@ const SignUpForm = () => {
     username: '',
     password: '',
     passwordConf: '',
+    displayName: '',
+    role: 'Customer',
+    email: '',
+    phone: '',
+    avatar: '',
   });
   const {setUser} = useContext(UserContext)
-  const { username, password, passwordConf } = formData;
+  const { username, password, passwordConf, displayName, role, email, phone, avatar } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -21,7 +27,8 @@ const SignUpForm = () => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const user = await authService.signUp(formData)
+    const dataToSend = {...formData, phone:Number(formData.phone)}
+    const user = await authService.signUp(dataToSend)
     setUser(user); 
     navigate('/')
   };
@@ -33,13 +40,12 @@ const SignUpForm = () => {
   return (
     <main>
       <h1>Sign Up</h1>
-      <p>{message}</p>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='username'>Username:</label>
           <input
             type='text'
-            id='name'
+            id='username'
             value={username}
             name='username'
             onChange={handleChange}
@@ -66,6 +72,61 @@ const SignUpForm = () => {
             name='passwordConf'
             onChange={handleChange}
             required
+          />
+        </div>
+        <div>
+          <label htmlFor='displayName'>Display Name:</label>
+          <input
+            type='text'
+            id='displayName'
+            value={displayName}
+            name='displayName'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='role'>Role:</label>
+          <select
+            id='role'
+            value={role}
+            name='role'
+            onChange={handleChange}
+            required >
+            <option value="Customer">Customer</option>
+            <option value="Service Provider">Service Provider</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor='email'>Email:</label>
+          <input
+            type='text'
+            id='email'
+            value={email}
+            name='email'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='phone'>Phone Number:</label>
+          <input
+            type='text'
+            id='phone'
+            value={phone}
+            name='phone'
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor='avatar'>Avatar:</label>
+          <input
+            type='text'
+            id='avatar'
+            value={avatar}
+            name='avatar'
+            onChange={handleChange}
           />
         </div>
         <div>
