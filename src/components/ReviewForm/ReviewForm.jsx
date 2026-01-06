@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [rating, setRating] = useState(5)
@@ -22,29 +23,30 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
       setLoading(true)
       const token = localStorage.getItem('token')
 
-      const res = await fetch('/reviews', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          ...(token ? { Authorization: `Bearer ${token}` } : {})
-        },
-        body: JSON.stringify({
+      const res = await axios.post(
+        '/reviews',
+        {
           service: serviceId,
           rating: Number(rating),
           comment
-        })
-      })
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {})
+          }
+        }
+      )
 
-      if (res.ok) {
+      if (res.status === 200 || res.status === 201) {
         setRating(5)
         setComment('')
         if (onSubmitted) onSubmitted() // reload reviews in ServiceDetails
       } else {
-        const err = await res.json()
-        alert(err.error || 'Failed to submit review')
+        alert('Failed to submit review')
       }
     } catch (error) {
-      alert('Error submitting review')
+      alert(error.response?.data?.error || 'Error submitting review')
     } finally {
       setLoading(false)
     }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ReviewForm from './ReviewForm'
+import axios from 'axios'
 
 const ServiceDetails = () => {
   const { id } = useParams()
@@ -11,15 +12,16 @@ const ServiceDetails = () => {
   const loadData = async () => {
     try {
       setLoading(true)
-      const sRes = await fetch(`/services/${id}`)
-      const sJson = await sRes.json()
-      setService(sJson.service)
 
-      const rRes = await fetch(`/reviews/${id}`)
-      const rJson = await rRes.json()
-      setReviews(rJson.reviews || [])
+      // Get service details
+      const sRes = await axios.get(`/services/${id}`)
+      setService(sRes.data.service)
+
+      // Get reviews
+      const rRes = await axios.get(`/reviews/${id}`)
+      setReviews(rRes.data.reviews || [])
     } catch (error) {
-      alert('Error loading service')
+      alert(error.response?.data?.error || 'Error loading service')
     } finally {
       setLoading(false)
     }
