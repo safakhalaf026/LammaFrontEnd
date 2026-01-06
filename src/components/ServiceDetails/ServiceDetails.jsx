@@ -1,27 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import ReviewForm from './ReviewForm';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import ReviewForm from './ReviewForm'
 
 const ServiceDetails = () => {
-  const { id } = useParams();
-  const [service, setService] = useState(null);
-  const [reviews, setReviews] = useState([]);
+  const { id } = useParams()
+  const [service, setService] = useState(null)
+  const [reviews, setReviews] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const loadData = async () => {
-    const sRes = await fetch(`/services/${id}`);
-    const sJson = await sRes.json();
-    setService(sJson.service);
+    try {
+      setLoading(true)
+      const sRes = await fetch(`/services/${id}`)
+      const sJson = await sRes.json()
+      setService(sJson.service)
 
-    const rRes = await fetch(`/reviews/${id}`);
-    const rJson = await rRes.json();
-    setReviews(rJson.reviews || []);
-  };
+      const rRes = await fetch(`/reviews/${id}`)
+      const rJson = await rRes.json()
+      setReviews(rJson.reviews || [])
+    } catch (error) {
+      alert('Error loading service')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
-    loadData();
-  }, [id]);
+    loadData()
+  }, [id])
 
-  if (!service) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>
+  if (!service) return <p>Service not found</p>
 
   return (
     <div>
@@ -41,7 +50,7 @@ const ServiceDetails = () => {
 
       <ReviewForm serviceId={id} onSubmitted={loadData} />
     </div>
-  );
-};
+  )
+}
 
-export default ServiceDetails;
+export default ServiceDetails
