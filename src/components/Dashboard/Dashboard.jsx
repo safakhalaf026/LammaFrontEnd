@@ -1,6 +1,15 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect,useRef } from 'react'
+import mapboxgl from 'mapbox-gl'
+import 'mapbox-gl/dist/mapbox-gl.css';
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
+
+import ServiceCard from '../ServiceCard/ServiceCard'
+import './Dashboard.css'
+
+
+const INITIAL_CENTER = [50.5500, 26.0667]
+const INITIAL_ZOOM = 9.8
 
 const Dashboard = () => {
     // Access the user object from UserContext
@@ -31,7 +40,31 @@ const Dashboard = () => {
 
     }, [user]) // only fetch if after context loads the user from localStorage
 
+
+    // map
+    // Stores the map object to control it later
+    const mapRef = useRef(null)
+    // References the HTML div where the map will be drawn
+    const mapContainerRef = useRef(null)
+
+
+    useEffect(() => {
+    mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
+    mapRef.current = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: 'mapbox://styles/mapbox/standard',
+        center: INITIAL_CENTER, 
+        zoom: INITIAL_ZOOM
+        });
+
+    return () => {
+      mapRef.current.remove()
+    }
+  }, [])
+
+
     return (
+        <>
         <main>
             <h1>Welcome, {user.username}</h1>
             <p>
@@ -39,6 +72,11 @@ const Dashboard = () => {
             </p>
             <p><strong>{message}</strong></p>
         </main>
+        <div>
+            <div id='map-container' ref={mapContainerRef}/>
+
+        </div>
+        </>
     )
 }
 
