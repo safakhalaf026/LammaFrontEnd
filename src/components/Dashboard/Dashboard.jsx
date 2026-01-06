@@ -50,7 +50,7 @@ const Dashboard = () => {
 
     const [center, setCenter] = useState(INITIAL_CENTER)
     const [zoom, setZoom] = useState(INITIAL_ZOOM)
-    const [serviceData, setServiceData] = useState();
+    const [serviceData, setServiceData] = useState(null);
 
     const getBboxAndFetch = useCallback(async () => {
         if (!mapRef.current) return; 
@@ -110,41 +110,6 @@ const handleButtonClick = () => {
     zoom: INITIAL_ZOOM
   })
 }
-//pin
-// أضف هذا الـ useEffect قبل سطر الـ return
-useEffect(() => {
-    if (!serviceData || !mapRef.current) return;
-
-    // مصفوفة لتخزين الـ Markers الحالية حتى نتمكن من إزالتها لاحقاً إذا أردت
-    const currentMarkers = [];
-
-    // نمر على كل خدمة موجودة في البيانات الجلوبال (GeoJSON)
-    serviceData.features.forEach((feature) => {
-        // 1. إنشاء عنصر HTML للدبوس (اختياري لتخصيص الشكل)
-        const el = document.createElement('div');
-        el.className = 'marker'; // يمكنك تصميمها في CSS
-
-        // 2. إنشاء الدبوس وإضافته للخريطة
-        const marker = new mapboxgl.Marker()
-            .setLngLat(feature.geometry.coordinates)
-            // إضافة نافذة منبثقة (Popup) تظهر عند الضغط على الدبوس
-            .setPopup(
-                new mapboxgl.Popup({ offset: 25 }) 
-                    .setHTML(`
-                        <h4>${feature.properties.name || 'Service'}</h4>
-                        <p>${feature.properties.description || 'No description'}</p>
-                    `)
-            )
-            .addTo(mapRef.current);
-        
-        currentMarkers.push(marker);
-    });
-
-    // تنظيف الدبابيس عند تحديث البيانات (حتى لا تتكرر)
-    return () => {
-        currentMarkers.forEach(marker => marker.remove());
-    };
-}, [serviceData]);
 
 return (
  <>
@@ -165,6 +130,8 @@ return (
                 </div>
 
             <div id='map-container' ref={mapContainerRef}/>
+            
+
 
         </div>
         </>
