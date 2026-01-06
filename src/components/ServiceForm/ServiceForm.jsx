@@ -29,36 +29,38 @@ function ServiceForm({ updateService, serviceToUpdate }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        let payload
         window.navigator.geolocation.getCurrentPosition(
             async (position) => {
-                const payload = {
+                payload = {
                     ...formState,
                     latitude: String(position.coords.latitude),
                     longitude: String(position.coords.longitude),
                 }
+                try {
+                    if (serviceToUpdate) {
+                        const updatedService = await serviceService.update(serviceToUpdate._id, payload)
+                        if (updatedService) {
+                            navigate('/')
+                        } else {
+                            console.log('Update failed')
+                        }
+                    } else {
+                        const data = await serviceService.create(payload)
+                        if (data) {
+                            updateService(data)
+                            navigate('/')
+                        } else {
+                            console.log('Create failed')
+                        }
+                    }
+                } catch (err) {
+                    console.log('Geolocation or submit failed:', err)
+                    alert('Please allow location access to create a service.')
+                }
             }
         )
-        try {
-            if (serviceToUpdate) {
-                const updatedService = await serviceService.update(serviceToUpdate._id, payload)
-                if (updatedService) {
-                    navigate('/')
-                } else {
-                    console.log('Update failed')
-                }
-            } else {
-                const data = await serviceService.create(payload)
-                if (data) {
-                    updateService(data)
-                    navigate('/')
-                } else {
-                    console.log('Create failed')
-                }
-            }
-        } catch (err) {
-            console.log('Geolocation or submit failed:', err)
-            alert('Please allow location access to create a service.')
-        }
+
     }
     return (
         <main>
@@ -138,4 +140,3 @@ function ServiceForm({ updateService, serviceToUpdate }) {
 }
 
 export default ServiceForm
-
