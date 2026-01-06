@@ -1,3 +1,4 @@
+// Safa Khalaf
 import { useState,useContext } from 'react';
 import { useNavigate } from 'react-router';
 import * as authService from '../../services/authService'
@@ -126,7 +127,6 @@ const SignUpForm = () => {
             value={avatar}
             name='avatar'
             onChange={handleChange}
-            required
           />
         </div>
         <div>
