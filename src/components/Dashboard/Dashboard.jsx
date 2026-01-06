@@ -1,4 +1,5 @@
-import { useContext, useState, useEffect,useRef } from 'react'
+import { useContext, useState, useEffect, useRef, useCallback } from 'react'
+import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { UserContext } from '../../contexts/UserContext'
@@ -49,6 +50,27 @@ const Dashboard = () => {
 
     const [center, setCenter] = useState(INITIAL_CENTER)
     const [zoom, setZoom] = useState(INITIAL_ZOOM)
+    const [serviceData, setServiceData] = useState();
+
+    const getBboxAndFetch = useCallback(async () => {
+        if (!mapRef.current) return; 
+        const bounds = mapRef.current.getBounds();
+
+        try {
+            const response = await axios.get(import.meta.env.VITE_BACK_END_SERVER_URL, {
+                params: {
+                    minlatitude: bounds._sw.lat,
+                    maxlatitude: bounds._ne.lat,
+                    minlongitude: bounds._sw.lng,
+                    maxlongitude: bounds._ne.lng
+                }
+            });
+
+            setServiceData(response.data);
+        } catch (error) {
+            console.error( error);
+        }
+    }, []);
 
     useEffect(() => {
     mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
@@ -67,13 +89,17 @@ const Dashboard = () => {
         // update state
         setCenter([ mapCenter.lng, mapCenter.lat ])
         setZoom(mapZoom)
+
+        
     })
-   
+   // تشغيل الجلب عند تحميل الخريطة وعند انتهاء الحركة
+        mapRef.current.on('load', getBboxAndFetch);
+        mapRef.current.on('moveend', getBboxAndFetch);
 
     return () => {
       mapRef.current.remove()
     }
-  }, [])
+  }, [getBboxAndFetch])
 
 
 
@@ -84,7 +110,41 @@ const handleButtonClick = () => {
     zoom: INITIAL_ZOOM
   })
 }
+//pin
+// أضف هذا الـ useEffect قبل سطر الـ return
+useEffect(() => {
+    if (!serviceData || !mapRef.current) return;
 
+    // مصفوفة لتخزين الـ Markers الحالية حتى نتمكن من إزالتها لاحقاً إذا أردت
+    const currentMarkers = [];
+
+    // نمر على كل خدمة موجودة في البيانات الجلوبال (GeoJSON)
+    serviceData.features.forEach((feature) => {
+        // 1. إنشاء عنصر HTML للدبوس (اختياري لتخصيص الشكل)
+        const el = document.createElement('div');
+        el.className = 'marker'; // يمكنك تصميمها في CSS
+
+        // 2. إنشاء الدبوس وإضافته للخريطة
+        const marker = new mapboxgl.Marker()
+            .setLngLat(feature.geometry.coordinates)
+            // إضافة نافذة منبثقة (Popup) تظهر عند الضغط على الدبوس
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 }) 
+                    .setHTML(`
+                        <h4>${feature.properties.name || 'Service'}</h4>
+                        <p>${feature.properties.description || 'No description'}</p>
+                    `)
+            )
+            .addTo(mapRef.current);
+        
+        currentMarkers.push(marker);
+    });
+
+    // تنظيف الدبابيس عند تحديث البيانات (حتى لا تتكرر)
+    return () => {
+        currentMarkers.forEach(marker => marker.remove());
+    };
+}, [serviceData]);
 
 return (
  <>
