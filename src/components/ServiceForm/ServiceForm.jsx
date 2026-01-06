@@ -1,8 +1,7 @@
 // Safa Khalaf
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import * as serviceService from '../../services/serviceService'
-import { UserContext } from '../../contexts/UserContext';
 
 function ServiceForm({ updateService, serviceToUpdate }) {
     const navigate = useNavigate()
@@ -15,8 +14,13 @@ function ServiceForm({ updateService, serviceToUpdate }) {
         latitude: '',
         longitude: '',
     })
-
     const { serviceName, category, description, pricing, amount } = formState
+
+    const handleCoords = () => {
+        return new Promise((resolve, reject) => {
+            window.navigator.geolocation.getCurrentPosition(resolve, reject)
+        })
+    }
 
     const handleChange = (event) => {
         let { name, value } = event.target
@@ -29,38 +33,33 @@ function ServiceForm({ updateService, serviceToUpdate }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        let payload
-        window.navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                payload = {
-                    ...formState,
-                    latitude: String(position.coords.latitude),
-                    longitude: String(position.coords.longitude),
+        try {
+
+            const position = await handleCoords()
+            const lat = String(position.coords.latitude)
+            const long = String(position.coords.longitude)
+            const newFormState = { ...formState, latitude: lat, longitude: long }
+            const data = await serviceService.create(newFormState)
+            
+            if (serviceToUpdate) {
+                const updatedService = await serviceService.update(serviceToUpdate._id, newFormState)
+                if (updatedService) {
+                    navigate('/')
+                } else {
+                    console.log('Update failed')
                 }
-                try {
-                    if (serviceToUpdate) {
-                        const updatedService = await serviceService.update(serviceToUpdate._id, payload)
-                        if (updatedService) {
-                            navigate('/')
-                        } else {
-                            console.log('Update failed')
-                        }
-                    } else {
-                        const data = await serviceService.create(payload)
-                        if (data) {
-                            updateService(data)
-                            navigate('/')
-                        } else {
-                            console.log('Create failed')
-                        }
-                    }
-                } catch (err) {
-                    console.log('Geolocation or submit failed:', err)
-                    alert('Please allow location access to create a service.')
+            } else {
+                if (data) {
+                    updateService(data)
+                    navigate('/')
+                } else {
+                    console.log('Create failed')
                 }
             }
-        )
-
+        } catch (err) {
+            console.log('Geolocation or submit failed:', err)
+            alert('Please allow location access to create a service.')
+        }
     }
     return (
         <main>
@@ -131,7 +130,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                 )}
 
                 <div>
-                    <button>Submit</button>
+                    <button type="submit">{serviceToUpdate?'Update Service': 'Create Service'}</button>
                     <button onClick={() => navigate('/')}>Cancel</button>
                 </div>
             </form>

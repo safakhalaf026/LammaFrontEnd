@@ -50,6 +50,7 @@ const App = () => {
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
         <Route path='/service/new' element={<ServiceForm updateService={updateService} />} />
+        <Route path='/service/:serviceId/update' element={<ServiceForm  serviceToUpdate={serviceToUpdate} updateService={updateService} />} />
       </Routes>
     </>
   );
