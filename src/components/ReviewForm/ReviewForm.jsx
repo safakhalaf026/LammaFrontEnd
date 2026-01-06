@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import axios from 'axios'
+import { submitReview } from '../services/reviewService'
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [rating, setRating] = useState(5)
@@ -9,44 +9,29 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Validation
+    // Basic validation
     if (rating < 1 || rating > 5) {
-      alert('Rating must be between 1 and 5')
+      alert('Rating must be between 1 and 5.')
       return
     }
+
     if (!comment.trim()) {
-      alert('Comment cannot be empty')
+      alert('Comment cannot be empty.')
       return
     }
 
     try {
       setLoading(true)
-      const token = localStorage.getItem('token')
+      await submitReview(serviceId, { rating: Number(rating), comment })
 
-      const res = await axios.post(
-        '/reviews',
-        {
-          service: serviceId,
-          rating: Number(rating),
-          comment
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { Authorization: `Bearer ${token}` } : {})
-          }
-        }
-      )
-
-      if (res.status === 200 || res.status === 201) {
-        setRating(5)
-        setComment('')
-        if (onSubmitted) onSubmitted() // reload reviews in ServiceDetails
-      } else {
-        alert('Failed to submit review')
-      }
+      // Reset form after successful submission
+      setRating(5)
+      setComment('')
+      if (onSubmitted) onSubmitted() // Refresh reviews if callback is provided
     } catch (error) {
-      alert(error.response?.data?.error || 'Error submitting review')
+      const message =
+        error.response?.data?.err || error.response?.data?.error || 'Error submitting review.'
+      alert(message)
     } finally {
       setLoading(false)
     }
@@ -55,8 +40,9 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
   return (
     <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
       <div>
-        <label>Rating</label>
+        <label htmlFor="rating">Rating</label>
         <input
+          id="rating"
           type="number"
           min="1"
           max="5"
@@ -66,11 +52,12 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
         />
       </div>
       <div>
-        <label>Comment</label>
+        <label htmlFor="comment">Comment</label>
         <textarea
+          id="comment"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder="Write your comment"
+          placeholder="Write your comment..."
           disabled={loading}
         />
       </div>
