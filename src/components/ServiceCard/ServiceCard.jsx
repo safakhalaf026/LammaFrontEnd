@@ -1,31 +1,33 @@
 import React from 'react'
 import defaultAvatar from '../../images/af.png'
 import { Link } from "react-router";
+import axios from "axios";
+
 
 function ServiceCard({service}) {
    
-    function  handleRequest(){
-  
-     window.navigator.geolocation.getCurrentPosition( async function success(pos) {
-       const crd = pos.coords;
-            console.log("Your current position is:");
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
-         try {
-            { await axios.post(`${VITE_BACK_END_SERVER_URL}/service/${service._id}/request`,
-            { Latitude: crd.latitude,Longitude: crd.longitude },
-            { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } }
-          )
+   function handleRequest() {
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_BACK_END_SERVER_URL}/service/${service._id}/request`,
+        {
+          Latitude: pos.coords.latitude,
+          Longitude: pos.coords.longitude,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
-        return (response.data);
-         } catch (error) {
-            console.log(error)
-         }
-        
+      );
 
-
-    })
+      console.log("Service requested successfully");
+    } catch (error) {
+      console.log(error);
+    }
+  });
+}
   return (
     <div>
       <div id='card-header'> 
@@ -54,13 +56,11 @@ function ServiceCard({service}) {
 
     <div className="card-footer">
 
-        <Link to={`/service/${service._id}/details`} >Service Details</Link>
-        <button onClick={handleRequest}>Request Service</button>
+        <Link to={`/service/${service._id}`} >Service Details</Link>
       </div>
 
 
     </div>
-  )
-}
-}
+  )}
+
 export default ServiceCard

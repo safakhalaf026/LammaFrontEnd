@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import "./MapComponent.css"
+import ServiceCard from '../ServiceCard/ServiceCard'
 
 const INITIAL_CENTER = [50.5500, 26.0667]
 const INITIAL_ZOOM = 9.8
@@ -16,7 +17,7 @@ const MapComponent = () => {
 
     const [center, setCenter] = useState(INITIAL_CENTER)
     const [zoom, setZoom] = useState(INITIAL_ZOOM)
-    const [serviceData, setServiceData] = useState(null)
+    const [serviceData, setServiceData] = useState([])
     //احضار الدبابيس الخاصه في المنطقه الظاهره فقط امام المستخدم
 const getBboxAndFetch = useCallback(async () => {
         if (!mapRef.current) return;
@@ -34,8 +35,12 @@ const getBboxAndFetch = useCallback(async () => {
             headers: {
                 Authorization: `Bearer ${token}`}
             });
-
-            setServiceData(response.data);
+          const responseService = response.data.services
+            setServiceData(responseService);
+            console.log(responseService);
+            console.log(response.data);
+            
+            
         } catch (error) {
             console.error(error);
         }
@@ -76,7 +81,7 @@ useEffect(() => {
       markersRef.current = [];
     //رسم الدبابيس
     // نمر على الخدمات
-    const services = serviceData.services || [];
+const services = serviceData;
     services.forEach((service) => {
         //بيانات الخدمه
         const longitude = parseFloat(service.longitude);
@@ -129,6 +134,15 @@ useEffect(() => {
         </div>
 
         <div id='map-container' ref={mapContainerRef} />
+<div className='servicesList'>
+  {serviceData.map(service => (
+    <div key={service._id}>
+      <ServiceCard service={service} />
+    </div>
+  ))}
+</div>
+
+
     </>
     )
 };

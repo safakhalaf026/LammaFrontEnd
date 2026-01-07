@@ -8,6 +8,8 @@ import ServiceCard from '../ServiceCard/ServiceCard'
 
 
 const Dashboard = () => {
+      const navigate = useNavigate()
+    
     // Access the user object from UserContext
     const { user } = useContext(UserContext)
 
@@ -37,7 +39,7 @@ const Dashboard = () => {
     }, [user]) // only fetch if after context loads the user from localStorage
     function handleAddService(){
     
-    navigate('/services/new')
+    navigate('/service/new')
     
      };
 
@@ -52,6 +54,7 @@ return (
                 This is the dashboard page where you can see a list of all the users.
             </p>
             <p><strong>{message}</strong></p>
+            
            {user?.role === 'Service Provider' && (
         <button 
            
