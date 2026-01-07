@@ -8,10 +8,11 @@
 
 #map-container {
   width: 100%;
-  height: 800px; /* حددي ارتفاعاً ثابتاً بالبكسل لتتمكني من رؤيتها */
-  background-color: lightgrey; /* هذا اللون سيظهر لكِ الحاوية */
-  border: 2px dashed #666; /* إضافة إطار وهمي للتأكد من مكانها */
-  position: relative; /* غيريها من absolute إلى relative لتأخذ مساحة طبيعية في الصفحة */
+  height: 800px; 
+  background-color: lightgrey; 
+  border: 2px dashed #666; 
+  position: relative; 
+  
   margin-top: 20px;
 }
 
