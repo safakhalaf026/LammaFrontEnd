@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams, Link, useNavigate } from 'react-router'
 import ReviewForm from '../ReviewForm/ReviewForm'
 import { UserContext } from '../../contexts/UserContext'
@@ -45,10 +45,10 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   if (!service) return <p>Service not found</p>
 
   // checks if logged in user is owner of the service (via refrencing)
-  const isOwner = user._id === service.provider 
+  const isOwner = user?._id === service?.provider 
 
   // checks if the logged in user has role === 'Service Provider' AND is the owner of the service
-  const isServiceManager = user.role === 'Service Provider' && isOwner
+  const isServiceManager = user?.role === 'Service Provider' && isOwner
 
   return (
     <div>
@@ -58,7 +58,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       <p>Total Reviews: {service.ratingStats?.count || 0}</p>
 
       {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
-      {isServiceManager ? (
+      {!isServiceManager ? (
         <div>   
           <Link onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
           <button onClick={handleDelete}>Delete Service</button>
@@ -76,7 +76,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       ))}
 
       {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
-      {!isOwner? (
+      {isOwner? (
         <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
       ): null}
       
