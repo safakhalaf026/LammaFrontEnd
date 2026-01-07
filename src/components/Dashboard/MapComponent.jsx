@@ -15,6 +15,7 @@ const MapComponent = ({ userLocation }) => {
     const mapContainerRef = useRef(null)
     const markersRef = useRef([]);
     const userMarkerRef = useRef(null);  // لتتبع المستخدم
+    const hasCenteredRef = useRef(false) //لتحريك الخريطه في اول مره
  
 
 
@@ -76,7 +77,7 @@ useEffect(() => {
         return () => mapRef.current.remove();
     }, []);
     
-    
+
     // رسم وتحديث موقع المستخدم
 useEffect(() => {
     if (!mapRef.current || !userLocation) return;
@@ -93,11 +94,16 @@ useEffect(() => {
         userLocation.lat,
         ]);
     }
+   // تحريك الخريطه لموقع المستخدم لاول مره فقط
+    if (!hasCenteredRef.current) {
+    mapRef.current.flyTo({
+      center: [userLocation.lng, userLocation.lat],
+      zoom: 14,
+    });
+    hasCenteredRef.current = true;
+    }
+    
     }, [userLocation]);
-
-
-
-
 
 
 
@@ -111,7 +117,7 @@ useEffect(() => {
     //  اذا ما في خريطه لا تعمل شي
     if (!mapRef.current || !serviceData) return;
     //حتى لا تتكرر الدبابيس
-      markersRef.current.forEach(marker => marker.remove());
+      markersRef.current.forEach(item => item.marker.remove())
       markersRef.current = [];
     //رسم الدبابيس
     // نمر على الخدمات

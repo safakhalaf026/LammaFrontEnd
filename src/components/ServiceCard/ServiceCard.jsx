@@ -1,33 +1,10 @@
-import React from 'react'
 import defaultAvatar from '../../images/af.png'
 import { Link } from "react-router";
-import axios from "axios";
 import "./ServiceCard.css"
 
 function ServiceCard({service, isActive}) {
    
-   function handleRequest() {
-  navigator.geolocation.getCurrentPosition(async (pos) => {
-    try {
-      await axios.post(
-        `${import.meta.env.VITE_BACK_END_SERVER_URL}/service/${service._id}/request`,
-        {
-          Latitude: pos.coords.latitude,
-          Longitude: pos.coords.longitude,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      console.log("Service requested successfully");
-    } catch (error) {
-      console.log(error);
-    }
-  });
-}
+  
   return (
 
     <div className={`service-card ${isActive ? 'active' : ''}`}>

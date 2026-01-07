@@ -4,7 +4,7 @@ import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
 
 import MapComponent from './MapComponent' 
-import ServiceCard from '../ServiceCard/ServiceCard'
+import "./Dashboard.css"
 
 
 const Dashboard = () => {
@@ -35,7 +35,19 @@ const Dashboard = () => {
             }
         }
 
-        //لاخذ موقع المستخدم و تتبعه
+        // Only fetch data if user exists (i.e., someone is logged in)
+        // if (user===truthy) THEN run function
+        // This prevents errors from trying to make authenticated requests without a user
+        if (user) fetchTest()
+
+    }, [user]) // only fetch if after context loads the user from localStorage
+    function handleAddService(){
+    
+    navigate('/service/new')
+    
+     };
+
+     //لاخذ موقع المستخدم و تتبعه
 
         useEffect(() => {
         // طلب ومراقبة موقع المستخدم بشكل مستمر
@@ -60,19 +72,6 @@ const Dashboard = () => {
         };
         }, []);
 
-
-        // Only fetch data if user exists (i.e., someone is logged in)
-        // if (user===truthy) THEN run function
-        // This prevents errors from trying to make authenticated requests without a user
-        if (user) fetchTest()
-
-    }, [user]) // only fetch if after context loads the user from localStorage
-    function handleAddService(){
-    
-    navigate('/service/new')
-    
-     };
-
    
 
 
@@ -96,7 +95,7 @@ return (
 
              </main>
         <div>
-           <MapComponent/> 
+          <MapComponent userLocation={userLocation} />
         </div>
         
         </>
