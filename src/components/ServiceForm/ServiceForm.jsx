@@ -94,8 +94,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                 </div>
                 <div>
                     <label htmlFor='description'>Description:</label>
-                    <input
-                        type='text'
+                    <textarea
                         id='description'
                         value={description}
                         name='description'
