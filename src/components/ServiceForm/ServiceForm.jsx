@@ -16,7 +16,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
         longitude: '',
     })
 
-    // this is returns most recent edit without the need to refresh page
+    // this is returns most recent edit without the need to refresh
     useEffect(() => {
         const loadServiceForEdit = async () => {
             if (!serviceId) return
@@ -54,7 +54,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
             if (serviceId) {
                 const updatedService = await serviceService.update(serviceId, newFormState)
                 if (updatedService) {
-                    navigate(`/service/${serviceToUpdate._id}`)
+                    navigate(`/service/${serviceId}`)
                 } else {
                     console.log('Update failed')
                 }
