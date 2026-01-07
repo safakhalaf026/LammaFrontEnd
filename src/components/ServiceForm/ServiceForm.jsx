@@ -1,10 +1,11 @@
 // Safa Khalaf
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useState,useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import * as serviceService from '../../services/serviceService'
 
 function ServiceForm({ updateService, serviceToUpdate }) {
     const navigate = useNavigate()
+    const { serviceId } = useParams()
     const [formState, setFormState] = useState(serviceToUpdate ? serviceToUpdate : {
         serviceName: '',
         category: '',
@@ -14,6 +15,17 @@ function ServiceForm({ updateService, serviceToUpdate }) {
         latitude: '',
         longitude: '',
     })
+
+    // this is returns most recent edit without the need to refresh page
+    useEffect(() => {
+        const loadServiceForEdit = async () => {
+            if (!serviceId) return
+            const latest = await serviceService.show(serviceId)
+            if (latest) setFormState(latest)
+        }
+        loadServiceForEdit()
+    }, [serviceId])
+
     const { serviceName, category, description, pricing, amount } = formState
 
     const handleCoords = () => {
@@ -38,16 +50,16 @@ function ServiceForm({ updateService, serviceToUpdate }) {
             const lat = String(position.coords.latitude)
             const long = String(position.coords.longitude)
             const newFormState = { ...formState, latitude: lat, longitude: long }
-            const data = await serviceService.create(newFormState)
-            
-            if (serviceToUpdate) {
-                const updatedService = await serviceService.update(serviceToUpdate._id, newFormState)
+
+            if (serviceId) {
+                const updatedService = await serviceService.update(serviceId, newFormState)
                 if (updatedService) {
                     navigate(`/service/${serviceToUpdate._id}`)
                 } else {
                     console.log('Update failed')
                 }
             } else {
+                const data = await serviceService.create(newFormState)
                 if (data) {
                     updateService(data)
                     navigate(`/service/${data._id}`)
@@ -128,7 +140,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                 )}
 
                 <div>
-                    <button type="submit">{serviceToUpdate?'Update Service': 'Create Service'}</button>
+                    <button type="submit">{serviceToUpdate ? 'Update Service' : 'Create Service'}</button>
                     <button onClick={() => navigate('/')}>Cancel</button>
                 </div>
             </form>
