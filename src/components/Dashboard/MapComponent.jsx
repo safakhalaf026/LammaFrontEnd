@@ -9,11 +9,14 @@ import ServiceCard from '../ServiceCard/ServiceCard'
 const INITIAL_CENTER = [50.5500, 26.0667]
 const INITIAL_ZOOM = 9.8
 
-const MapComponent = () => {
+const MapComponent = ({ userLocation }) => {
 
     const mapRef = useRef(null)
     const mapContainerRef = useRef(null)
     const markersRef = useRef([]);
+    const userMarkerRef = useRef(null);  // لتتبع المستخدم
+ 
+
 
     const [center, setCenter] = useState(INITIAL_CENTER)
     const [zoom, setZoom] = useState(INITIAL_ZOOM)
@@ -72,6 +75,32 @@ useEffect(() => {
 
         return () => mapRef.current.remove();
     }, []);
+    
+    
+    // رسم وتحديث موقع المستخدم
+useEffect(() => {
+    if (!mapRef.current || !userLocation) return;
+
+    // إذا الماركر غير موجود  أنشئه
+    if (!userMarkerRef.current) {
+        userMarkerRef.current = new mapboxgl.Marker({ color: "blue" })
+        .setLngLat([userLocation.lng, userLocation.lat])
+        .addTo(mapRef.current);
+    } else {
+        // إذا موجود حدّث موقعه فقط
+        userMarkerRef.current.setLngLat([
+        userLocation.lng,
+        userLocation.lat,
+        ]);
+    }
+    }, [userLocation]);
+
+
+
+
+
+
+
  //اعاده تعيين الخريطه للاحداثيات الاصليه
 const handleReset = () => {
         mapRef.current.flyTo({ center: INITIAL_CENTER, zoom: INITIAL_ZOOM });
