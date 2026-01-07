@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams, Link, useNavigate } from 'react-router'
 import ReviewForm from '../ReviewForm/ReviewForm'
 import { UserContext } from '../../contexts/UserContext'
@@ -45,10 +45,10 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   if (!service) return <p>Service not found</p>
 
   // checks if logged in user is owner of the service (via refrencing)
-  const isOwner = user?._id === service?.provider 
+  const isOwner = user._id === service.provider 
 
   // checks if the logged in user has role === 'Service Provider' AND is the owner of the service
-  const isServiceManager = user?.role === 'Service Provider' && isOwner
+  const isServiceManager = user.role === 'Service Provider' && isOwner
 
   return (
     <div>

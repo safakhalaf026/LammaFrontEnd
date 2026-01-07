@@ -2,10 +2,8 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
-
 import MapComponent from './MapComponent'
 import ServiceCard from '../ServiceCard/ServiceCard'
-
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -46,7 +44,7 @@ const Dashboard = () => {
     return (
         <>
             <main>
-                <h1>Welcome, {user?.username}</h1>
+                <h1>Welcome, {user.displayName}</h1>
                 <p>
                     This is the dashboard page where you can see a list of all the users.
                 </p>

@@ -34,7 +34,6 @@ function ServiceForm({ updateService, serviceToUpdate }) {
     const handleSubmit = async (event) => {
         event.preventDefault()
         try {
-
             const position = await handleCoords()
             const lat = String(position.coords.latitude)
             const long = String(position.coords.longitude)
@@ -44,14 +43,14 @@ function ServiceForm({ updateService, serviceToUpdate }) {
             if (serviceToUpdate) {
                 const updatedService = await serviceService.update(serviceToUpdate._id, newFormState)
                 if (updatedService) {
-                    navigate('/')
+                    navigate(`/service/${serviceToUpdate._id}`)
                 } else {
                     console.log('Update failed')
                 }
             } else {
                 if (data) {
                     updateService(data)
-                    navigate('/')
+                    navigate(`/service/${data._id}`)
                 } else {
                     console.log('Create failed')
                 }
