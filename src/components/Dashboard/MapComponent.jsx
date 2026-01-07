@@ -81,11 +81,12 @@ useEffect(() => {
         //بيانات الخدمه
         const longitude = parseFloat(service.longitude);
         const latitude = parseFloat(service.latitude);
-
-    const defaultAvatar = "../../images/af.png";
+        
+        const defaultAvatar = "../../images/af.png";
 
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
                 <div class="mini-popup">
+                   <h2>${service.serviceName}</h2>
                    <img 
                         src="${service.provider?.avatar || defaultAvatar}" 
                         alt="${service.provider?.username || 'provider'}" 
@@ -97,7 +98,7 @@ useEffect(() => {
                     <div class="rating">
                         <span>⭐ ${service.ratingStats?.average || 0} (${service.ratingStats?.count || 0})</span>
                     </div>
-                    <h2>${service.serviceName}</h3>
+                    
                     
                     <button id="view-btn-${service._id}" class="popup-btn" >
                         Details
@@ -111,6 +112,7 @@ useEffect(() => {
             .addTo(mapRef.current); // اضفه للخريطه
 
             markersRef.current.push(marker); 
+         
             
     });
 

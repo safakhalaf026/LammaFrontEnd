@@ -8,7 +8,6 @@ import ServiceCard from '../ServiceCard/ServiceCard'
 
 
 const Dashboard = () => {
-    const navigate = useNavigate()
     // Access the user object from UserContext
     const { user } = useContext(UserContext)
 
@@ -41,13 +40,14 @@ const Dashboard = () => {
     navigate('/services/new')
     
      };
+
    
 
 
 return (
  <>
         <main>
-            <h1>Welcome, {user.username}</h1>
+            <h1>Welcome, {user?.username}</h1>
             <p>
                 This is the dashboard page where you can see a list of all the users.
             </p>
@@ -63,8 +63,9 @@ return (
 
              </main>
         <div>
-           <MapComponent /> 
+           <MapComponent/> 
         </div>
+        
         </>
 )
 }

@@ -50,9 +50,6 @@ function ServiceCard({service}) {
              <p>{service.pricing==='Fixed'?'price:' +service.amount:""}</p>
 
             </div>
-
-        <p className="description">{service.description}</p>
-
     </div>
 
     <div className="card-footer">
