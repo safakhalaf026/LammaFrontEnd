@@ -7,6 +7,7 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import ServiceForm from './components/ServiceForm/ServiceForm';
+import ServiceDetails from './components/ServiceDetails/ServiceDetails';
 import * as serviceService from './services/serviceService'
 import { UserContext } from './contexts/UserContext';
 
@@ -50,6 +51,7 @@ const App = () => {
         <Route path='/sign-up' element={<SignUpForm />} />
         <Route path='/sign-in' element={<SignInForm />} />
         <Route path='/service/new' element={<ServiceForm updateService={updateService} />} />
+        <Route path='/service/:serviceId' element={<ServiceDetails deleteService={deleteService} findServicesToUpdate={findServicesToUpdate} />} />
         <Route path='/service/:serviceId/update' element={<ServiceForm  serviceToUpdate={serviceToUpdate} updateService={updateService} />} />
       </Routes>
     </>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { submitReview } from '../services/reviewService'
+import { submitReview } from '../../services/reviewService'
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [rating, setRating] = useState(5)
