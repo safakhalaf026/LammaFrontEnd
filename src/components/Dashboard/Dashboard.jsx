@@ -2,18 +2,13 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
-<<<<<<< HEAD
 
 import MapComponent from './MapComponent' 
 import "./Dashboard.css"
-=======
-import MapComponent from './MapComponent'
-import ServiceCard from '../ServiceCard/ServiceCard'
->>>>>>> main
 
 const Dashboard = () => {
     const navigate = useNavigate()
-
+    
     // Access the user object from UserContext
     const { user } = useContext(UserContext)
 
@@ -45,25 +40,26 @@ const Dashboard = () => {
         if (user) fetchTest()
 
     }, [user]) // only fetch if after context loads the user from localStorage
-    function handleAddService() {
+    
+    function handleAddService(){
+        navigate('/service/new')
+    };
 
-<<<<<<< HEAD
-     //لاخذ موقع المستخدم و تتبعه
-
-        useEffect(() => {
+    //لاخذ موقع المستخدم و تتبعه
+    useEffect(() => {
         // طلب ومراقبة موقع المستخدم بشكل مستمر
         const watchId = navigator.geolocation.watchPosition(   //watchPosition لتتبع الموقع باستمرار 
             (position) => {
-            setUserLocation({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-            });
+                setUserLocation({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
             },
             (error) => {
-            console.error("Error getting location:", error);
+                console.error("Error getting location:", error);
             },
             {
-            enableHighAccuracy: true,   //use real GPS
+                enableHighAccuracy: true,   //use real GPS
             }
         );
 
@@ -71,50 +67,32 @@ const Dashboard = () => {
         return () => {
             navigator.geolocation.clearWatch(watchId);
         };
-        }, []);
+    }, []); 
 
-   
-=======
-        navigate('/service/new')
->>>>>>> main
-
-    };
 
     return (
         <>
             <main>
-                <h1>Welcome, {user.displayName}</h1>
+                <h1>Welcome, {user?.username}</h1>
                 <p>
                     This is the dashboard page where you can see a list of all the users.
                 </p>
                 <p><strong>{message}</strong></p>
-
+                
                 {user?.role === 'Service Provider' && (
-                    <button
-
-                        onClick={() => handleAddService()}
+                    <button 
+                        onClick={() => handleAddService() }
                     >
                         Add New Service
                     </button>
                 )}
-
             </main>
-            <div>
-                <MapComponent />
-            </div>
 
-<<<<<<< HEAD
-             </main>
-        <div>
-          <MapComponent userLocation={userLocation} />
-        </div>
-        
-=======
->>>>>>> main
+            <div>
+                <MapComponent userLocation={userLocation} />
+            </div>
         </>
     )
 }
 
-
 export default Dashboard
-
