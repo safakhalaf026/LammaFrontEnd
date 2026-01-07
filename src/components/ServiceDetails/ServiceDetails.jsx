@@ -44,6 +44,12 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   if (loading) return <p>Loading...</p>
   if (!service) return <p>Service not found</p>
 
+  // checks if logged in user is owner of the service (via refrencing)
+  const isOwner = user?._id === service?.provider 
+
+  // checks if the logged in user has role === 'Service Provider' AND is the owner of the service
+  const isServiceManager = user?.role === 'Service Provider' && isOwner
+
   return (
     <div>
       <h2>{service.serviceName}</h2>
@@ -51,9 +57,14 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       <p>Average Rating: {service.ratingStats?.average || 0}</p>
       <p>Total Reviews: {service.ratingStats?.count || 0}</p>
 
+      {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
+      {!isServiceManager ? (
+        <div>   
+          <Link onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
+          <button onClick={handleDelete}>Delete Service</button>
+        </div>
+      ):null}
 
-      <Link onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
-      <button onClick={handleDelete}>Delete Service</button>
 
       <h3>Reviews</h3>
       {reviews.map(r => (
@@ -64,7 +75,11 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
         </div>
       ))}
 
-      <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
+      {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
+      {isOwner? (
+        <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
+      ): null}
+      
     </div>
   )
 }

@@ -2,14 +2,18 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
+<<<<<<< HEAD
 
 import MapComponent from './MapComponent' 
 import "./Dashboard.css"
-
+=======
+import MapComponent from './MapComponent'
+import ServiceCard from '../ServiceCard/ServiceCard'
+>>>>>>> main
 
 const Dashboard = () => {
-      const navigate = useNavigate()
-    
+    const navigate = useNavigate()
+
     // Access the user object from UserContext
     const { user } = useContext(UserContext)
 
@@ -41,12 +45,9 @@ const Dashboard = () => {
         if (user) fetchTest()
 
     }, [user]) // only fetch if after context loads the user from localStorage
-    function handleAddService(){
-    
-    navigate('/service/new')
-    
-     };
+    function handleAddService() {
 
+<<<<<<< HEAD
      //لاخذ موقع المستخدم و تتبعه
 
         useEffect(() => {
@@ -73,35 +74,47 @@ const Dashboard = () => {
         }, []);
 
    
+=======
+        navigate('/service/new')
+>>>>>>> main
 
+    };
 
-return (
- <>
-        <main>
-            <h1>Welcome, {user?.username}</h1>
-            <p>
-                This is the dashboard page where you can see a list of all the users.
-            </p>
-            <p><strong>{message}</strong></p>
-            
-           {user?.role === 'Service Provider' && (
-        <button 
-           
-            onClick={() => handleAddService() }
-        >
-            Add New Service
-        </button>
-    )}
+    return (
+        <>
+            <main>
+                <h1>Welcome, {user.displayName}</h1>
+                <p>
+                    This is the dashboard page where you can see a list of all the users.
+                </p>
+                <p><strong>{message}</strong></p>
 
+                {user?.role === 'Service Provider' && (
+                    <button
+
+                        onClick={() => handleAddService()}
+                    >
+                        Add New Service
+                    </button>
+                )}
+
+            </main>
+            <div>
+                <MapComponent />
+            </div>
+
+<<<<<<< HEAD
              </main>
         <div>
           <MapComponent userLocation={userLocation} />
         </div>
         
+=======
+>>>>>>> main
         </>
-)
+    )
 }
 
- 
+
 export default Dashboard
 
