@@ -122,14 +122,22 @@ const services = serviceData;
             .addTo(mapRef.current); // اضفه للخريطه
 
             //عند الضغط على الماركر
-            marker.getElement().addEventListener("click", () => {
-                
+        marker.getElement().addEventListener("click", () => {
             setActiveServiceId(service._id);
+            //ربط الماركر بالبطاقه
+            const card = document.getElementById(`service-card-${service._id}`);
+             if (card) {
+                card.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                });
+            }
+            
             });
 
-            //  تخزين id & marker
+            //   تخزين id & marker
             markersRef.current.push({
-            id: service._id,
+            id: service._id,  //للربطبين الماركر و البطاقه
             marker,
             });
          
@@ -152,7 +160,8 @@ const services = serviceData;
 
         <div className='servicesList'>
         {serviceData.map(service => (
-            <div key={service._id}>
+            //id مهم لعمل scroll
+            <div key={service._id}  id={`service-card-${service._id}`}>    
             <ServiceCard
                 service={service}
                 isActive={activeServiceId === service._id}

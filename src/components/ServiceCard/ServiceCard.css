@@ -1,7 +1,7 @@
 .servicesList {
   position: absolute;
   top: 80px;
-  right: 10px;           /* خليها على طرف الخريطة */
+  right: 10px;           /* نخليها على طرف الخريطة */
   width: 320px;
   max-height: calc(100vh - 120px);
   overflow-y: auto;      /* scroll */
