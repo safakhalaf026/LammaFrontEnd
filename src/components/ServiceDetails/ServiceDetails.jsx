@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import ReviewForm from './ReviewForm'
-import axios from 'axios'
+import React, { useEffect, useState, useContext } from 'react'
+import { useParams, Link, useNavigate } from 'react-router'
+import ReviewForm from '../ReviewForm/ReviewForm'
+import { UserContext } from '../../contexts/UserContext'
+import * as serviceService from '../../services/serviceService'
+import * as reviewService from '../../services/reviewService'
 
-const ServiceDetails = () => {
-  const { id } = useParams()
+const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
+  const navigate = useNavigate()
+  const {user} = useContext(UserContext)
+  const { serviceId } = useParams()
   const [service, setService] = useState(null)
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
@@ -14,12 +18,12 @@ const ServiceDetails = () => {
       setLoading(true)
 
       // Get service details
-      const sRes = await axios.get(`/services/${id}`)
-      setService(sRes.data.service)
+      const sRes = await serviceService.show(serviceId)
+      setService(sRes)
 
       // Get reviews
-      const rRes = await axios.get(`/reviews/${id}`)
-      setReviews(rRes.data.reviews || [])
+      const rRes = await reviewService.getReviews(serviceId)
+      setReviews(rRes || [])
     } catch (error) {
       alert(error.response?.data?.error || 'Error loading service')
     } finally {
@@ -29,7 +33,13 @@ const ServiceDetails = () => {
 
   useEffect(() => {
     loadData()
-  }, [id])
+  }, [serviceId])
+
+  const handleDelete = async ()=>{
+    const deletedService = await serviceService.remove(serviceId)
+    deleteService(serviceId)
+    navigate('/')
+  }
 
   if (loading) return <p>Loading...</p>
   if (!service) return <p>Service not found</p>
@@ -41,6 +51,10 @@ const ServiceDetails = () => {
       <p>Average Rating: {service.ratingStats?.average || 0}</p>
       <p>Total Reviews: {service.ratingStats?.count || 0}</p>
 
+
+      <Link onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
+      <button onClick={handleDelete}>Delete Service</button>
+
       <h3>Reviews</h3>
       {reviews.map(r => (
         <div key={r._id}>
@@ -50,7 +64,7 @@ const ServiceDetails = () => {
         </div>
       ))}
 
-      <ReviewForm serviceId={id} onSubmitted={loadData} />
+      <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
     </div>
   )
 }
