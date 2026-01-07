@@ -82,22 +82,26 @@ useEffect(() => {
         const longitude = parseFloat(service.longitude);
         const latitude = parseFloat(service.latitude);
 
-const defaultAvatar = "../../images/af.png";
+    const defaultAvatar = "../../images/af.png";
 
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
                 <div class="mini-popup">
-                    <img 
-                        src="${service.user?.avatar || defaultAvatar}" 
-                        alt="${service.user?.username || 'provider'}" 
+                   <img 
+                        src="${service.provider?.avatar || defaultAvatar}" 
+                        alt="${service.provider?.username || 'provider'}" 
                         class="avatar" 
                     />
-                    <p>${service.user?.displayName || 'Unknown'} </p>
+                    <p>
+                        ${service.provider?.displayName || 'Unknown'} 
+                    </p>
                     <div class="rating">
                         <span>⭐ ${service.ratingStats?.average || 0} (${service.ratingStats?.count || 0})</span>
                     </div>
-                    <h3>${service.serviceName}</h3>
+                    <h2>${service.serviceName}</h3>
                     
-                    <button id="view-btn-${service._id}" class="popup-btn"> Details  </button>
+                    <button id="view-btn-${service._id}" class="popup-btn" >
+                        Details
+                    </button>
                 </div>`
             );
         //  هنا رسم الخريطه

@@ -1,12 +1,14 @@
 import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
+import { useNavigate } from 'react-router-dom'
 
 import MapComponent from './MapComponent' 
 import ServiceCard from '../ServiceCard/ServiceCard'
 
 
 const Dashboard = () => {
+    const navigate = useNavigate()
     // Access the user object from UserContext
     const { user } = useContext(UserContext)
 
@@ -34,6 +36,12 @@ const Dashboard = () => {
         if (user) fetchTest()
 
     }, [user]) // only fetch if after context loads the user from localStorage
+    function handleAddService(){
+    
+    navigate('/services/new')
+    
+     };
+   
 
 
 return (
@@ -44,7 +52,16 @@ return (
                 This is the dashboard page where you can see a list of all the users.
             </p>
             <p><strong>{message}</strong></p>
-        </main>
+           {user?.role === 'Service Provider' && (
+        <button 
+           
+            onClick={() => handleAddService() }
+        >
+            Add New Service
+        </button>
+    )}
+
+             </main>
         <div>
            <MapComponent /> 
         </div>
