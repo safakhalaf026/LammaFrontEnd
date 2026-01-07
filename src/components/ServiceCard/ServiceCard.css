@@ -1,0 +1,81 @@
+.servicesList {
+  position: absolute;
+  top: 80px;
+  right: 10px;           /* خليها على طرف الخريطة */
+  width: 320px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;      /* scroll */
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+
+.service-card {
+  background: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
+
+.service-card.active {
+  border-color: #ff3b3b;
+  background-color: #fff2f2;
+}
+
+
+#card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+#card-header .avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#card-details h3 {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+.service-rating {
+  font-size: 14px;
+  color: #555;
+}
+
+.card-footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-footer a {
+  text-decoration: none;
+  color: #0077ff;
+  font-weight: 500;
+}
+
+.servicesList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.servicesList::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}

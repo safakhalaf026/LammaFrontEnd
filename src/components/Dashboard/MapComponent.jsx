@@ -18,6 +18,8 @@ const MapComponent = () => {
     const [center, setCenter] = useState(INITIAL_CENTER)
     const [zoom, setZoom] = useState(INITIAL_ZOOM)
     const [serviceData, setServiceData] = useState([])
+    const [activeServiceId, setActiveServiceId] = useState(null);
+
     //احضار الدبابيس الخاصه في المنطقه الظاهره فقط امام المستخدم
 const getBboxAndFetch = useCallback(async () => {
         if (!mapRef.current) return;
@@ -26,7 +28,9 @@ const getBboxAndFetch = useCallback(async () => {
         try {
             
         const response = await axios.get(`${import.meta.env.VITE_BACK_END_SERVER_URL}/service`, {
-                params: {
+            //الخدمات التي تقعفي الجزء الظاهر من الخريطة فقط  
+            //يعني فلتر للخدمات الموجوده في المنطقه الظاهره (البحرين)  
+            params: {
                 minlatitude: bounds._sw.lat,
                 maxlatitude: bounds._ne.lat,
                 minlongitude: bounds._sw.lng,
@@ -54,20 +58,21 @@ useEffect(() => {
             zoom: zoom,
             style: 'mapbox://styles/mapbox/standard',
         });
-
+       // موقع الخريطه
         mapRef.current.on('move', () => {
             const mapCenter = mapRef.current.getCenter();
             const mapZoom = mapRef.current.getZoom();
             setCenter([mapCenter.lng, mapCenter.lat]);
             setZoom(mapZoom);
         });
-
+       //أول ما تظهر الخريطة جيب الخدمات الموجودة داخلها
         mapRef.current.on('load', getBboxAndFetch);
+        //بعد ما يوقف  المستخدم تحريك الخريطه يتم جلب الخدمات
         mapRef.current.on('moveend', getBboxAndFetch);
 
         return () => mapRef.current.remove();
     }, []);
-
+ //اعاده تعيين الخريطه للاحداثيات الاصليه
 const handleReset = () => {
         mapRef.current.flyTo({ center: INITIAL_CENTER, zoom: INITIAL_ZOOM });
     };
@@ -88,9 +93,9 @@ const services = serviceData;
         const latitude = parseFloat(service.latitude);
         
         const defaultAvatar = "../../images/af.png";
-
+           //النافذه المنبثقه
             const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                <div class="mini-popup">
+                 <div class="mini-popup">
                    <h2>${service.serviceName}</h2>
                    <img 
                         src="${service.provider?.avatar || defaultAvatar}" 
@@ -113,10 +118,20 @@ const services = serviceData;
         //  هنا رسم الخريطه
        const marker = new mapboxgl.Marker({ color: 'red' }) 
             .setLngLat([longitude, latitude]) //الموقع
-            .setPopup(popup)
+            .setPopup(popup)  //اضف النافذه المنبثقه
             .addTo(mapRef.current); // اضفه للخريطه
 
-            markersRef.current.push(marker); 
+            //عند الضغط على الماركر
+            marker.getElement().addEventListener("click", () => {
+                
+            setActiveServiceId(service._id);
+            });
+
+            //  تخزين id & marker
+            markersRef.current.push({
+            id: service._id,
+            marker,
+            });
          
             
     });
@@ -134,13 +149,17 @@ const services = serviceData;
         </div>
 
         <div id='map-container' ref={mapContainerRef} />
-<div className='servicesList'>
-  {serviceData.map(service => (
-    <div key={service._id}>
-      <ServiceCard service={service} />
-    </div>
-  ))}
-</div>
+
+        <div className='servicesList'>
+        {serviceData.map(service => (
+            <div key={service._id}>
+            <ServiceCard
+                service={service}
+                isActive={activeServiceId === service._id}
+                />
+            </div>
+        ))}
+        </div>
 
 
     </>

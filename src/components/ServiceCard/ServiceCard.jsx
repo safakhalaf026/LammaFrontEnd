@@ -2,9 +2,9 @@ import React from 'react'
 import defaultAvatar from '../../images/af.png'
 import { Link } from "react-router";
 import axios from "axios";
+import "./ServiceCard.css"
 
-
-function ServiceCard({service}) {
+function ServiceCard({service, isActive}) {
    
    function handleRequest() {
   navigator.geolocation.getCurrentPosition(async (pos) => {
@@ -29,7 +29,8 @@ function ServiceCard({service}) {
   });
 }
   return (
-    <div>
+    <div className={`service-card ${isActive ? 'active' : ''}`}>
+
       <div id='card-header'> 
         <img 
             src={service.provider.avatar ||defaultAvatar } 
