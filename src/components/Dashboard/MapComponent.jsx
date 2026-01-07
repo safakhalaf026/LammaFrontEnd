@@ -58,7 +58,7 @@ useEffect(() => {
             zoom: zoom,
             style: 'mapbox://styles/mapbox/standard',
         });
-       // موقع الخريطه
+       // تحديث موقع الخريطة
         mapRef.current.on('move', () => {
             const mapCenter = mapRef.current.getCenter();
             const mapZoom = mapRef.current.getZoom();
@@ -115,7 +115,7 @@ const services = serviceData;
                     </button>
                 </div>`
             );
-        //  هنا رسم الخريطه
+        //  هنا رسم الماركر على الخريطة
        const marker = new mapboxgl.Marker({ color: 'red' }) 
             .setLngLat([longitude, latitude]) //الموقع
             .setPopup(popup)  //اضف النافذه المنبثقه

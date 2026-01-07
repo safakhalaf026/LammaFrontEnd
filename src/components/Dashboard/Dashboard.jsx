@@ -16,6 +16,10 @@ const Dashboard = () => {
     // Create state to store the message we'll receive from the backend
     const [message, setMessage] = useState('')
 
+    //Create state to track the users location 
+    const [userLocation, setUserLocation] = useState(null);
+
+
     // useEffect runs after the component renders
     // This is where we perform side effects like API calls
     useEffect(() => {
@@ -30,6 +34,32 @@ const Dashboard = () => {
                 console.log(err)
             }
         }
+
+        //لاخذ موقع المستخدم و تتبعه
+
+        useEffect(() => {
+        // طلب ومراقبة موقع المستخدم بشكل مستمر
+        const watchId = navigator.geolocation.watchPosition(   //watchPosition لتتبع الموقع باستمرار 
+            (position) => {
+            setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+            });
+            },
+            (error) => {
+            console.error("Error getting location:", error);
+            },
+            {
+            enableHighAccuracy: true,   //use real GPS
+            }
+        );
+
+        //   ايقاف المراقبه عند الخروج من الصفحه
+        return () => {
+            navigator.geolocation.clearWatch(watchId);
+        };
+        }, []);
+
 
         // Only fetch data if user exists (i.e., someone is logged in)
         // if (user===truthy) THEN run function

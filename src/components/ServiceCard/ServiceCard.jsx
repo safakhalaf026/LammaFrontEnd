@@ -29,7 +29,10 @@ function ServiceCard({service, isActive}) {
   });
 }
   return (
+
     <div className={`service-card ${isActive ? 'active' : ''}`}>
+        {/* add active class when chose service*/}
+
 
       <div id='card-header'> 
         <img 
@@ -44,9 +47,9 @@ function ServiceCard({service, isActive}) {
         <h3>{service.serviceName}</h3>
 
             <div className="service-rating">
-         {/*  اشاره الاستفهام تعني لوو كان في تقييم والا فاستمر */}
+         {/*  علامة الاستفهام تعني: إذا وُجد تقييم اعرضه، وإلا اعرض 0*/}
          {/* بيطلع التقيم⭐ 4.5(12) */}
-         {/*  */}
+        
          <span>⭐ {service.ratingStats?.average || 0} ({service.ratingStats?.count || 0})</span>
              <p>{service.category}</p>
              <p>{service.pricing}</p>
