@@ -1,0 +1,164 @@
+/* ServiceDetails.module.css */
+
+.container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 45px;
+  background: #ffffff;
+  border-radius: 16px;
+  /* اعتماد الخط الاحترافي الموحد */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.04);
+  color: #1f2937;
+  border: 1px solid #f1f5f9;
+}
+
+/* العنوان: وزن عريض وخط مريح للعين */
+.title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: #111827; /* أسود كربوني */
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-weight: 400;
+}
+
+/* الإحصائيات: خط أنيق وصغير نسبياً للحفاظ على الرسمية */
+.stats {
+  display: inline-flex;
+  align-items: center;
+  background: #f9fafb;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 12px;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+}
+
+/* أزرار التحكم: خط متوسط (Medium) */
+.actionButtons {
+  display: flex;
+  gap: 12px;
+  margin: 35px 0;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.editBtn,
+.deleteBtn {
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.editBtn {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.editBtn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.deleteBtn {
+  background: #ffffff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.deleteBtn:hover {
+  background: #fef2f2;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 40px 0 24px;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+/* كروت التقييم: تحسين قراءة النص */
+.reviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.reviewCard {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reviewCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+}
+
+.stars {
+  font-size: 1.1rem;
+  color: #f59e0b;
+  margin-bottom: 12px;
+}
+
+.reviewText {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.reviewerName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+}
+
+.reviewerName::before {
+  content: "";
+  width: 12px;
+  height: 1px;
+  background: #d1d5db;
+  margin-right: 8px;
+}
+
+/* حاوية الفورم */
+.reviewFormContainer {
+  margin-top: 50px;
+  padding: 30px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+/* حالة التحميل */
+.loading {
+  text-align: center;
+  padding: 100px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #2563eb;
+}

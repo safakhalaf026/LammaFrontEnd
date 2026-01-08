@@ -4,7 +4,8 @@ import ReviewForm from '../ReviewForm/ReviewForm'
 import { UserContext } from '../../contexts/UserContext'
 import * as serviceService from '../../services/serviceService'
 import * as reviewService from '../../services/reviewService'
-import './ServiceDetails.css'
+import styles from './ServiceDetails.module.css' 
+
 const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
@@ -51,39 +52,45 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   const isServiceManager = user?.role === 'Service Provider' && isOwner
 
   return (
-    <div>
-      <h2>{service.serviceName}</h2>
-      <p className='review-text'>{service.description}</p>
-      <p>Average Rating: {service.ratingStats?.average || 0}</p>
-      <p>Total Reviews: {service.ratingStats?.count || 0}</p>
+    <div className={styles.container}>
+      <h1 className={styles.title}>{service.serviceName}</h1>
+      <h3 className={styles.description}>{service.description}</h3>
+      <h5 className={styles.stats}>Average Rating: {service.ratingStats?.average || 0}</h5>
+      <h5 className={styles.stats}>Total Reviews: {service.ratingStats?.count || 0}</h5>
 
       {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
       {isOwner ? (
-        <div className='action-buttons'>   
-          <Link className='edit-btn' onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
-          <button className='delete-btn' onClick={handleDelete}>Delete Service</button>
+        <div className={styles.actionButtons}>
+          <Link
+            className={styles.editBtn}
+            onClick={() => findServicesToUpdate(serviceId)}
+            to={`/service/${serviceId}/update`}
+          >
+            Edit
+          </Link>
+          <button className={styles.deleteBtn} onClick={handleDelete}>
+            Delete Service
+          </button>
         </div>
       ):null}
 
 
-      <h3>Reviews</h3>
-      <div>
-        <div className="review-grid">
-          {reviews.map(r => (
-            <div key={r._id} className='review-card'>
-               <div className="stars">
--                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
--               </div>
-              <p className='review-text'>{r.comment}</p>
-              <span className="reviewer-name">{r.customer?.displayName}</span>
+      <h3 className={styles.sectionTitle}>Reviews</h3>
+      <div className={styles.reviewGrid}>
+          {reviews.map((r) => (
+          <div key={r._id} className={styles.reviewCard}>
+            <div className={styles.stars}>
+              {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
             </div>
-          ))}
-        </div>
+            <p className={styles.reviewText}>{r.comment}</p>
+            <span className={styles.reviewerName}>{r.customer?.displayName}</span>
+          </div>
+        ))}
       </div>
 
       {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
       {!isOwner? (
-        <div className="review-form-container">
+        <div className={styles.reviewFormContainer}>
           <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
         </div>
       ): null}

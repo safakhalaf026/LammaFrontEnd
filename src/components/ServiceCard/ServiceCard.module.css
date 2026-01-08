@@ -24,26 +24,27 @@
 #card-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 #card-header img {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
 }
 
 #card-header p {
-  font-weight: 600;
+  font-weight: 500;
   color: #1f2937;
-  margin: 0;
+  margin: 5px;
 }
 
 /* Details */
 #card-details h3 {
   font-size: 1.1rem;
   color: #111827;
-  margin: 0;
+  margin: -5px;
+  margin-bottom: 10px;
 }
 
 .service-rating {
@@ -51,12 +52,13 @@
   grid-template-columns: repeat(2, auto);
   gap: 6px 12px;
   font-size: 0.85rem;
+  margin-top: 10px;
 }
 
 .service-rating span {
   grid-column: span 2;
   color: #f59e0b;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .service-rating p {
@@ -66,12 +68,12 @@
 
 .service-rating p:last-child {
   color: #16a34a;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 /* Footer */
 .card-footer {
-  border-top: 1px solid #eee;
+  border-top: 1px solid #123c96 ;
   padding-top: 10px;
   text-align: right;
 }
@@ -79,8 +81,11 @@
 .card-footer a {
   color: #2563eb;
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 550;
   text-decoration: none;
+  padding-top: 10px;
+  text-align: right;
+
 }
 
 .card-footer a:hover {

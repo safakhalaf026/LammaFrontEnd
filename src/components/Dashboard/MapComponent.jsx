@@ -5,8 +5,8 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 import ServiceCard from '../ServiceCard/ServiceCard'
 import styles from "./MapComponent.module.css"
 
-const INITIAL_CENTER = [50.5500, 26.0667]
-const INITIAL_ZOOM = 9.8
+const INITIAL_CENTER = [ 50.5069 , 26.0642]
+const INITIAL_ZOOM =  9.14
 
 const MapComponent = ({ userLocation }) => {
 

@@ -1,0 +1,111 @@
+/* ReviewForm.module.css */
+
+.form {
+  max-width: 650px;
+  margin: 30px auto;
+  padding: 40px;
+  background: #ffffff;
+  border-radius: 12px; /* حواف أقل حدة تعطي طابعاً رسمياً */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  /* اعتماد خطوط احترافية ونظيفة */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.ratingBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600; /* وزن خط متوسط ورسمي */
+  color: #374151;
+  letter-spacing: 0.01em;
+  margin-bottom: 4px;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.star {
+  color: #d1d5db; /* رمادي هادئ */
+  transition: color 0.2s ease;
+}
+
+.filled {
+  color: #f59e0b; /* ذهبي كلاسيكي غير متوهج */
+}
+
+textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 12px 16px;
+  /* تحسين خط الكتابة داخل المربع */
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #1f2937;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+textarea:focus {
+  border-color: #2563eb;
+  /* ظل أزرق خفيف جداً عند التركيز */
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+textarea::placeholder {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.button {
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 500; /* خط غير سميك جداً ليبقى رسمياً */
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: #111827; /* أسود كربوني رسمي */
+  color: #ffffff;
+  transition: all 0.2s ease;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.button:hover:not(:disabled) {
+  background: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.button:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* تحسينات الخط للشاشات الصغيرة */
+@media (max-width: 480px) {
+  .form {
+    padding: 24px;
+  }
+  .label {
+    font-size: 0.85rem;
+  }
+}

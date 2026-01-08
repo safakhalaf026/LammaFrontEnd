@@ -11,6 +11,21 @@
   padding: 12px 24px;
   border-bottom: 1px solid #e5e5e5;
   background-color: #ffffff;
+
+  border-bottom: 2px solid #2563eb; /* اللون الأزرق المتوسط المثالي */
+border-bottom: 2px solid #2563eb; 
+
+  border-bottom: 2px solid #2563eb; 
+
+  /* ظل أزرق كحلي ناعم وعميق */
+  /* القيم: x-offset, y-offset, blur, spread, color */
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12); 
+
+  /* لجعل الناف بار يطفو بشكل أجمل */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+    font-family: 'Inter', sans-serif;
 }
 
 .logo{

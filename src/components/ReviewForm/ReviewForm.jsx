@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { submitReview } from '../../services/reviewService'
+import styles from './ReviewForm.module.css' 
+
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [rating, setRating] = useState(5)
@@ -38,21 +40,29 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
-      <div>
-        <label htmlFor="rating">Rating</label>
-        <input
-          id="rating"
-          type="number"
-          min="1"
-          max="5"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-          disabled={loading}
-        />
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <div className={styles.ratingBox}>
+        <label className={styles.label}>Rating</label>
+        <div className={styles.stars}>
+          {[1, 2, 3, 4, 5].map((star) => (
+            <span
+              key={star}
+              className={`${styles.star} ${star <= rating ? styles.filled : ''}`}
+              onClick={() => setRating(star)}
+              role="button"
+              aria-label={`${star} star`}
+              tabIndex={0}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') setRating(star)
+              }}
+            >
+              ★
+            </span>
+          ))}
+        </div>
       </div>
       <div>
-        <label htmlFor="comment">Comment</label>
+        <label htmlFor="comment" className={styles.label}>Comment</label>
         <textarea
           id="comment"
           value={comment}
@@ -61,11 +71,12 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
           disabled={loading}
         />
       </div>
-      <button type="submit" disabled={loading}>
+      <button type="submit" className={styles.button} disabled={loading}>
         {loading ? 'Submitting...' : 'Submit Review'}
       </button>
     </form>
   )
 }
+
 
 export default ReviewForm
