@@ -6,7 +6,7 @@ import * as serviceService from '../../services/serviceService'
 import * as reviewService from '../../services/reviewService'
 import './ServiceDetails.css'
 
-const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
+const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { serviceId } = useParams()
@@ -36,7 +36,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
     loadData()
   }, [serviceId])
 
-  const handleDelete = async ()=>{
+  const handleDelete = async () => {
     const deletedService = await serviceService.remove(serviceId)
     deleteService(serviceId)
     navigate('/')
@@ -60,11 +60,11 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
 
       {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
       {isOwner ? (
-        <div className='action-buttons'>   
-          <Link className='edit-btn' onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
+        <div className='action-buttons'>
+          <Link className='edit-btn' onClick={() => findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
           <button className='delete-btn' onClick={handleDelete}>Delete Service</button>
         </div>
-      ):null}
+      ) : null}
 
 
       <h3>Reviews</h3>
@@ -72,9 +72,9 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
         <div className="review-grid">
           {reviews.map(r => (
             <div key={r._id} className='review-card'>
-               <div className="stars">
--                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
--               </div>
+              <div className="stars">
+                -                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
+                -               </div>
               <p className='review-text'>{r.comment}</p>
               <span className="reviewer-name">{r.customer?.displayName}</span>
             </div>
@@ -83,12 +83,12 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       </div>
 
       {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
-      {!isOwner? (
+      {!isOwner ? (
         <div className="review-form-container">
           <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
         </div>
-      ): null}
-      
+      ) : null}
+
     </div>
   )
 }
