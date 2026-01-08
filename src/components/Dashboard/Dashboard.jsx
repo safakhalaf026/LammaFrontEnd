@@ -4,7 +4,7 @@ import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
 
 import MapComponent from './MapComponent' 
-import "./Dashboard.css"
+import styles from "./Dashboard.module.css"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -71,32 +71,35 @@ const Dashboard = () => {
 
 
     return (
-        <>
-            <div className="layout-container">
-
-                <div className="header-info">
-                <h1>Welcome, {user?.displayName} </h1>
+       
+    <>
+        <div className={styles['layout-container']}>
+            <div className={styles['header-info']}>
+                <h1>Welcome, {user?.displayName}</h1>
                 <p>
                     Discover available services around you using the interactive map below.
                     Browse, compare, and choose the service that best fits your needs.
                 </p>
-                </div>
-            <div className="services">
-                  {user?.role === 'Service Provider' && (
-                    <button 
-                        onClick={() => handleAddService() } >
-                     Add New Service        
-                   </button>
+            </div>
+
+            <div className={styles.services}>
+                {user?.role === 'Service Provider' && (
+                    <button onClick={() => handleAddService()}>
+                        Add New Service        
+                    </button>
                 )}
             </div>
 
-            <div className="map-area">
+            {/* تأكد من كتابة اسم الكلاس بالأقواس المربعة لوجود شرطة */}
+            <div className={styles['map-area']}>
                 <MapComponent userLocation={userLocation} />
             </div>
-            </div>
-
-        </>
-    )
+            
+        </div>
+    </>
+);
+       
+    
 }
 
 export default Dashboard

@@ -1,29 +1,29 @@
 import defaultAvatar from '../../images/af.png'
 import { Link } from "react-router";
-import "./ServiceCard.css"
+import styles from "./ServiceCard.module.css"
 
 function ServiceCard({service, isActive}) {
    
   
   return (
 
-    <div className={`service-card ${isActive ? 'active' : ''}`}>
-        {/* add active class when chose service*/}
+    <div className={`${styles['service-card']} ${isActive ? styles.active : ''}`}>
+          {/* add active class when chose service*/}
 
 
-      <div id='card-header'> 
+      <div id={styles['card-header']}> 
         <img 
             src={service.provider.avatar ||defaultAvatar } 
             alt={service.provider.username} 
-            className="avatar" 
+            className={styles.avatar}
         />
         <p>{service.provider.displayName} </p>
     </div>
 
-    <div id='card-details'>
+    <div id={styles['card-details']}>
         <h3>{service.serviceName}</h3>
 
-            <div className="service-rating">
+            <div className={styles['service-rating']}>
          {/*  علامة الاستفهام تعني: إذا وُجد تقييم اعرضه، وإلا اعرض 0*/}
          {/* بيطلع التقيم⭐ 4.5(12) */}
         
@@ -35,7 +35,7 @@ function ServiceCard({service, isActive}) {
             </div>
     </div>
 
-    <div className="card-footer">
+    <div className={styles['card-footer']}>
 
         <Link to={`/service/${service._id}`} >Service Details</Link>
       </div>

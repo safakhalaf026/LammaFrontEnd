@@ -2,8 +2,8 @@ import { useState, useEffect, useRef, useCallback ,useNavigate } from 'react'
 import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import "./MapComponent.css"
 import ServiceCard from '../ServiceCard/ServiceCard'
+import styles from "./MapComponent.module.css"
 
 const INITIAL_CENTER = [50.5500, 26.0667]
 const INITIAL_ZOOM = 9.8
@@ -126,42 +126,41 @@ const services = serviceData;
         const longitude = parseFloat(service.longitude);
         const latitude = parseFloat(service.latitude);
         
-        const defaultAvatar = "../../images/af.png";
+        // const defaultAvatar = "../../images/af.png";
            //النافذه المنبثقه
-            const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
-                 <div class="mini-popup">
-                   <h2>${service.serviceName}</h2>
-                   <img 
-                        src="${service.provider?.avatar || defaultAvatar}" 
-                        alt="${service.provider?.username || 'provider'}" 
-                        class="avatar" 
-                    />
-                    <p>
-                        ${service.provider?.displayName || 'Unknown'} 
-                    </p>
-                    <div class="rating">
-                        <span>⭐ ${service.ratingStats?.average || 0} (${service.ratingStats?.count || 0})</span>
-                    </div>
-                    
-                </div>`
-            );
+            const popupContent = `
+            <div class="${styles['mini-popup']}">
+                <h2 class="${styles['popup-title']}">${service.serviceName}</h2>
+                <img 
+                    src="${service.provider?.avatar }" 
+                    alt="provider" 
+                    class="${styles.avatar}"  
+                />
+                <p class="${styles['provider-name']}">
+                    ${service.provider?.displayName || 'Unknown'} 
+                </p>
+                <div class="${styles.rating}">
+                    <span>⭐ ${service.ratingStats?.average || 0} (${service.ratingStats?.count || 0})</span>
+                </div>
+            </div>`;
 
-        //لون كا خدمه
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(popupContent);
+
+        //لون لكل خدمه
         const categoryColors = {
-  'Maintenance': '#D32F2F',  // أحمر احترافي
-  'Education': '#1976D2',    // أزرق واضح
-  'Cooking': '#FFA000',      // برتقالي مائل للذهبي
-  'Tailoring': '#9C27B0',    // بنفسجي
-  'Programming': '#2E7D32',  // أخضر غامق
-  'Other': '#607274'         // رمادي هادئ
-};
-    
+            'Maintenance': '#D32F2F', 
+            'Education': '#1976D2',    
+            'Cooking': '#FFA000',      
+            'Tailoring': '#9C27B0',    
+            'Programming': '#2E7D32',  
+            'Other': '#607274'         
+            };
+                
 
         //   اللون اعتمادا على نوع الخدمة
-        const markerColor = categoryColors[service.category] 
+         const markerColor = categoryColors[service.category] 
         //  هنا رسم الماركر على الخريطة
-
-            const marker = new mapboxgl.Marker({
+        const marker = new mapboxgl.Marker({
             color: markerColor
             })            
             .setLngLat([longitude, latitude]) //الموقع
@@ -195,8 +194,8 @@ const services = serviceData;
 
     return (
        <>
-        <div className="map-area"> 
-            <div className='servicesList'>
+        <div className={styles['map-area']}> 
+            <div className={styles.servicesList}>
         {serviceData.map(service => (
             //id مهم لعمل scroll
             <div key={service._id}  id={`service-card-${service._id}`}>    
@@ -209,15 +208,15 @@ const services = serviceData;
             </div>
 
             
-        <button className='reset-button' onClick={handleReset}>
+        <button className={styles['reset-button']} onClick={handleReset}>
             Reset the map of Bahrain
         </button>
 
-        <div className="sidebar">
+        <div className={styles.sidebar}>
             Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
         </div>
 
-        <div id='map-container' ref={mapContainerRef} />
+        <div id={styles["map-container"]} ref={mapContainerRef}  />
 
         </div>
 
