@@ -74,13 +74,17 @@ const Dashboard = () => {
        
     <>
         <div className={styles['layout-container']}>
-            <div className={styles['header-info']}>
-                <h1>Welcome, {user?.displayName}</h1>
+         <div className={styles['header-info']}>
+
+                <h1>
+                    Welcome, <span>{user?.displayName}</span>
+                </h1>
+
                 <p>
-                    Discover available services around you using the interactive map below.
-                    Browse, compare, and choose the service that best fits your needs.
+                    Find trusted services around you using the interactive map.
+                    Compare options and choose what fits you best.
                 </p>
-            </div>
+                </div>
 
             <div className={styles.services}>
                 {user?.role === 'Service Provider' && (
@@ -90,7 +94,7 @@ const Dashboard = () => {
                 )}
             </div>
 
-            {/* تأكد من كتابة اسم الكلاس بالأقواس المربعة لوجود شرطة */}
+           
             <div className={styles['map-area']}>
                 <MapComponent userLocation={userLocation} />
             </div>

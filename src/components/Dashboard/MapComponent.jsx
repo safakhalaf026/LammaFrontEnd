@@ -121,20 +121,21 @@ useEffect(() => {
     //رسم الدبابيس
     // نمر على الخدمات
 const services = serviceData;
-    services.forEach((service) => {
+    services.forEach((service, idx) => {
         //بيانات الخدمه
         const longitude = parseFloat(service.longitude);
         const latitude = parseFloat(service.latitude);
         
+        console.log(idx, service.provider.avatar)
         // const defaultAvatar = "../../images/af.png";
            //النافذه المنبثقه
             const popupContent = `
             <div class="${styles['mini-popup']}">
                 <h2 class="${styles['popup-title']}">${service.serviceName}</h2>
                 <img 
-                    src="${service.provider?.avatar }" 
+                    src="${service.provider.avatar || "https://i.postimg.cc/2qtsw-YGj/af.png"}"
                     alt="provider" 
-                    class="${styles.avatar}"  
+                    class=${styles.avatar}  
                 />
                 <p class="${styles['provider-name']}">
                     ${service.provider?.displayName || 'Unknown'} 

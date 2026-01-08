@@ -1,80 +1,88 @@
 .layout-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    min-height: 100vh;
-    justify-content: center; 
-    align-items: center;
-    
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 100vh;
 }
 
+/* ===== Header ===== */
 .header-info {
-    border-bottom: 2px solid #eee;
-    padding-bottom: 15px;
-     display: flex;
-    flex-direction: column;
-      justify-content: center; 
-    align-items: center;
+  text-align: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: fadeInUp 1s ease forwards;
+  opacity: 0; 
 }
 
 .header-info h1 {
-    font-size: 2rem;
-    color: #333;
-    margin: 0;
-    text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
 }
 
 .header-info p {
-    color: #666;
-    max-width: 600px;
-    line-height: 1.5;
-    margin-top: 10px;
-    text-align: center;
+  color: #6b7280;
+  max-width: 650px;
+  margin: 10px auto 0;
+  line-height: 1.6;
+  font-weight: 400;
+  font-size: 1.1rem;
 }
 
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Actions ===== */
 .services {
-    display: flex;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -72px;  
 }
 
 .services button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 20px rgba(52, 152, 219, 0.25);
 }
 
-.services button:hover {
-    background-color: #2980b9;
-}
 
+/* ===== Map Wrapper ===== */
 .map-area {
-    width:100%;
-    height: 600px; 
-    border-radius: 15px;
-    overflow: hidden; 
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-    margin: auto;
-
-   
+  width: 100%;
+  height: 650px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* استجابة للهواتف */
+
+/* Mobile */
 @media (max-width: 768px) {
-    .layout-container {
-        padding: 10px;
-    }
-    
-    .map-area {
-        height: 500px;
-    }
+  .map-area {
+    height: 520px;
+  }
 }

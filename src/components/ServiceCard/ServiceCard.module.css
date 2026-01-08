@@ -1,96 +1,88 @@
 .service-card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 15px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    cursor: pointer;
-    position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid #e5e7eb;
+  transition: 0.25s ease;
 }
 
 .service-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
-    border-color: #3498db;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .service-card.active {
-    border: 2px solid #3498db;
-    background-color: #f0f7ff;
-    box-shadow: 0 0 15px rgba(52, 152, 219, 0.2);
-    transform: scale(1.02);
+  border: 2px solid #2563eb;
+  background: #eff6ff;
 }
 
+/* Header */
 #card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-#card-header .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #eee;
+#card-header img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
 }
 
 #card-header p {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #444;
-    margin: 0;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
 }
 
+/* Details */
 #card-details h3 {
-    font-size: 1.1rem;
-    margin: 0 0 8px 0;
-    color: #2c3e50;
+  font-size: 1.1rem;
+  color: #111827;
+  margin: 0;
 }
 
 .service-rating {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 6px 12px;
+  font-size: 0.85rem;
 }
 
 .service-rating span {
-    font-size: 0.9rem;
-    color: #f39c12; 
-    font-weight: bold;
+  grid-column: span 2;
+  color: #f59e0b;
+  font-weight: 700;
 }
 
 .service-rating p {
-    font-size: 0.85rem;
-    color: #7f8c8d;
-    margin: 0;
+  margin: 0;
+  color: #6b7280;
 }
 
+.service-rating p:last-child {
+  color: #16a34a;
+  font-weight: 600;
+}
+
+/* Footer */
 .card-footer {
-    margin-top: auto;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 10px;
-    text-align: right;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
+  text-align: right;
 }
 
 .card-footer a {
-    text-decoration: none;
-    color: #3498db;
-    font-size: 0.85rem;
-    font-weight: bold;
-    transition: color 0.2s;
+  color: #2563eb;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .card-footer a:hover {
-    color: #2980b9;
-    text-decoration: underline;
-}
-
-.service-rating p:last-of-type {
-    color: #27ae60;
-    font-weight: 600;
+  text-decoration: underline;
 }
