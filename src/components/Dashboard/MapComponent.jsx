@@ -150,7 +150,7 @@ const services = serviceData;
         //لون لكل خدمه
         const categoryColors = {
             'Maintenance': '#D32F2F', 
-            'Education': '#1976D2',    
+            'Education': '#ed13e6ff',    
             'Cooking': '#FFA000',      
             'Tailoring': '#9C27B0',    
             'Programming': '#2E7D32',  

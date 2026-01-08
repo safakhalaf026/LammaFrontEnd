@@ -53,6 +53,15 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
 
   return (
     <div className={styles.container}>
+       <div id={styles['card-header']}> 
+              <img 
+                  src={service.provider.avatar ||defaultAvatar } 
+                  alt={service.provider.username} 
+                  className={styles.avatar}
+              />
+              <p>{service.provider.displayName} </p>
+          </div>
+      
       <h1 className={styles.title}>{service.serviceName}</h1>
       <h3 className={styles.description}>{service.description}</h3>
       <h5 className={styles.stats}>Average Rating: {service.ratingStats?.average || 0}</h5>
