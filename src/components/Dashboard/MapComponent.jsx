@@ -58,8 +58,8 @@ useEffect(() => {
         mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            center: center,
-            zoom: zoom,
+            // center: center,
+            // zoom: zoom,
             style: 'mapbox://styles/mapbox/standard',
         });
        // تحديث موقع الخريطة
@@ -144,10 +144,6 @@ const services = serviceData;
                         <span>⭐ ${service.ratingStats?.average || 0} (${service.ratingStats?.count || 0})</span>
                     </div>
                     
-                    
-                    <button id="view-btn-${service._id}" class="popup-btn" >
-                        Details
-                    </button>
                 </div>`
             );
         //  هنا رسم الماركر على الخريطة
@@ -184,7 +180,7 @@ const services = serviceData;
     return (
        <>
         <button className='reset-button' onClick={handleReset}>
-            Reset
+            Reset the map of Bahrain
         </button>
 
         <div className="sidebar">

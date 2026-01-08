@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import MapComponent from './MapComponent' 
 import "./Dashboard.css"
+import NavBar from '../NavBar/NavBar'
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -73,18 +74,19 @@ const Dashboard = () => {
     return (
         <>
             <main>
-                <h1>Welcome, {user?.username}</h1>
+                <NavBar/>
+                <h1>Welcome, {user?.displayName}</h1>
                 <p>
-                    This is the dashboard page where you can see a list of all the users.
+                    Discover available services around you using the interactive map below.
+                    Browse, compare, and choose the service that best fits your needs.
                 </p>
-                <p><strong>{message}</strong></p>
+                {/* <p><strong>{message}</strong></p> */}
                 
                 {user?.role === 'Service Provider' && (
                     <button 
-                        onClick={() => handleAddService() }
-                    >
-                        Add New Service
-                    </button>
+                        onClick={() => handleAddService() } >
+                   ➕ Add New Service        
+                   </button>
                 )}
             </main>
 
