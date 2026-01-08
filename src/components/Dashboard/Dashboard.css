@@ -1,34 +1,73 @@
-main {
-    padding: 20px;
-    max-width: 1200px;
+/* الحاوية الرئيسية للصفحة بالكامل */
+.layout-container {
+    max-width: 1400px;
     margin: 0 auto;
-    text-align: center;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 100vh;
 }
 
-h1 {
-    color: #2c3e50;
-    margin-bottom: 10px;
+/* قسم الترحيب العلوي */
+.header-info {
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
 }
 
-button {
+.header-info h1 {
+    font-size: 2rem;
+    color: #333;
+    margin: 0;
+}
+
+.header-info p {
+    color: #666;
+    max-width: 600px;
+    line-height: 1.5;
+    margin-top: 10px;
+}
+
+/* قسم زر إضافة الخدمة */
+.services {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.services button {
     background-color: #3498db;
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
-    font-size: 16px;
     transition: background 0.3s ease;
-    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(52, 152, 219, 0.2);
 }
 
-button:hover {
+.services button:hover {
     background-color: #2980b9;
 }
 
-.map-wrapper {
-    margin-top: 20px;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+/* المنطقة التي تحتوي الخريطة والخدمات */
+.map-area {
+    width: 100%;
+    height: 600px; /* ارتفاع ثابت للمنطقة */
+    border-radius: 15px;
+    overflow: hidden; /* لمنع خروج الخريطة عن الحدود */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    background: #fff;
+}
+
+/* استجابة للهواتف */
+@media (max-width: 768px) {
+    .layout-container {
+        padding: 10px;
+    }
+    
+    .map-area {
+        height: 500px;
+    }
 }

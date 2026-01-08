@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect, useRef, useCallback ,useNavigate } from 'react'
 import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
@@ -179,6 +178,20 @@ const services = serviceData;
 
     return (
        <>
+        <div className="map-area"> 
+            <div className='servicesList'>
+        {serviceData.map(service => (
+            //id مهم لعمل scroll
+            <div key={service._id}  id={`service-card-${service._id}`}>    
+            <ServiceCard
+                service={service}
+                isActive={activeServiceId === service._id}
+                />
+            </div>
+                ))}
+            </div>
+
+            
         <button className='reset-button' onClick={handleReset}>
             Reset the map of Bahrain
         </button>
@@ -189,18 +202,7 @@ const services = serviceData;
 
         <div id='map-container' ref={mapContainerRef} />
 
-        <div className='servicesList'>
-        {serviceData.map(service => (
-            //id مهم لعمل scroll
-            <div key={service._id}  id={`service-card-${service._id}`}>    
-            <ServiceCard
-                service={service}
-                isActive={activeServiceId === service._id}
-                />
-            </div>
-        ))}
         </div>
-
 
     </>
     )
