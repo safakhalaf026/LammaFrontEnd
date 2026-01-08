@@ -4,6 +4,8 @@ import axios from 'axios'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import ServiceCard from '../ServiceCard/ServiceCard'
 import styles from "./MapComponent.module.css"
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'; //للبحث في الخريطه
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 const INITIAL_CENTER = [ 50.5069 , 26.0642]
 const INITIAL_ZOOM =  9.14
@@ -72,6 +74,16 @@ useEffect(() => {
         mapRef.current.on('load', getBboxAndFetch);
         //بعد ما يوقف  المستخدم تحريك الخريطه يتم جلب الخدمات
         mapRef.current.on('moveend', getBboxAndFetch);
+
+    // خاص للبحث عن الموقع
+        mapRef.current.addControl(
+        new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        useBrowserFocus: true,
+        mapboxgl: mapboxgl
+      })
+    );
+
 
         return () => mapRef.current.remove();
     }, []);
