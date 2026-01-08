@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom'
 
 import MapComponent from './MapComponent' 
 import "./Dashboard.css"
-import NavBar from '../NavBar/NavBar'
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -76,7 +75,7 @@ const Dashboard = () => {
             <div className="layout-container">
 
                 <div className="header-info">
-                <h1>Welcome, {user?.displayName}</h1>
+                <h1>Welcome, {user?.displayName} </h1>
                 <p>
                     Discover available services around you using the interactive map below.
                     Browse, compare, and choose the service that best fits your needs.
@@ -91,9 +90,9 @@ const Dashboard = () => {
                 )}
             </div>
 
-            <main className="map-area">
+            <div className="map-area">
                 <MapComponent userLocation={userLocation} />
-            </main>
+            </div>
             </div>
 
         </>

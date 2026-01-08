@@ -1,36 +1,38 @@
-/* الحاوية الكبرى التي تجمع القائمة والخريطة */
 .map-area {
-    display: flex; /* ترتيب العناصر بجانب بعضها */
-    flex-direction: row-reverse; /* القائمة يمين والخريطة يسار */
-    width: 100%;
-    height: 600px; /* يمكنك زيادة الارتفاع حسب الرغبة */
-    position: relative;
+    display: flex; 
+    flex-direction: row-reverse; 
+    width: 100%;            
+    max-width: 1500px;     
+    margin: auto;     
+    
+    height: 600px; 
+    position:relative;
     background-color: #fff;
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid #ddd;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
+    justify-content: center; 
+    align-items: center;
 }
 
-/* قائمة الخدمات الجانبية */
 .servicesList {
-    width: 350px; /* عرض ثابت للقائمة */
+    width: 25%; 
     height: 100%;
-    overflow-y: auto; /* تمرير الكروت إذا كانت كثيرة */
+    overflow-y: auto; 
     padding: 15px;
     background-color: #f9f9f9;
     border-left: 1px solid #eee;
     z-index: 2;
 }
 
-/* حاوية الخريطة */
 #map-container {
-    flex: 1; /* الخريطة تأخذ باقي المساحة المتاحة */
+    flex: 1; 
     height: 100%;
     width: 100%;
-    position: relative;
+    position:relative;
 }
 
-/* شريط الإحداثيات (الأسود الصغير) */
 .sidebar {
     position: absolute;
     top: 10px;
@@ -40,11 +42,10 @@
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 12px;
-    z-index: 1; /* ليكون فوق الخريطة */
+    z-index: 1; 
     pointer-events: none;
 }
 
-/* زر إعادة ضبط الخريطة */
 .reset-button {
     position: absolute;
     top: 50px;
@@ -66,7 +67,6 @@
     background-color: #0056b3;
 }
 
-/* تخصيص شكل النافذة المنبثقة (Popup) */
 .mini-popup {
     text-align: center;
     max-width: 150px;
@@ -84,7 +84,6 @@
     object-fit: cover;
 }
 
-/* تخصيص السكرول بار للقائمة ليكون أجمل */
 .servicesList::-webkit-scrollbar {
     width: 6px;
 }
@@ -93,10 +92,9 @@
     border-radius: 10px;
 }
 
-/* استجابة للشاشات الصغيرة */
 @media (max-width: 768px) {
     .map-area {
-        flex-direction: column; /* الخريطة فوق والقائمة تحت في الجوال */
+        flex-direction: column;
         height: 800px;
     }
     .servicesList {
