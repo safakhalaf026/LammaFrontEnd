@@ -1,17 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Inter+Tight:wght@600;700&display=swap');
+
 #root {
-  max-width: 1280px;
-  margin: 5px;
+  font-family: 'Inter', sans-serif;
 }
 
-.read-the-docs {
-  color: #888;
-}
-ul{
-  display: flex;
-  flex-direction: row;
-  list-style-type: none
-}
 
-li{
-  margin-right: 20px;
-}

@@ -1,0 +1,67 @@
+.main {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 24px;
+}
+
+.main h1 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #222;
+}
+
+.main p {
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #b00020; 
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  color: #444;
+}
+
+.input {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #888;
+}
+
+.form > div:last-child {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border: 1px solid #9fb3e0;
+  background-color: #c7d6f2;
+  color: #1f2f4d;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.button:hover {
+  background-color: #b8cbec;
+}

@@ -3,6 +3,8 @@ import { useState,useContext } from 'react';
 import { useNavigate } from 'react-router';
 import * as authService from '../../services/authService'
 import { UserContext } from '../../contexts/UserContext';
+import styles from './SignUpForm.module.css'
+import '../../app.css'
 
 const SignUpForm = () => {
   const navigate = useNavigate();
@@ -38,11 +40,11 @@ const SignUpForm = () => {
   };
 
   return (
-    <main>
+    <main className={styles.main}>
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div>
-          <label htmlFor='username'>Username:</label>
+          <label className={styles.label} htmlFor='username'>Username:</label>
           <input
             type='text'
             id='username'
@@ -50,10 +52,11 @@ const SignUpForm = () => {
             name='username'
             onChange={handleChange}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor='password'>Password:</label>
+          <label className={styles.label} htmlFor='password'>Password:</label>
           <input
             type='password'
             id='password'
@@ -61,10 +64,11 @@ const SignUpForm = () => {
             name='password'
             onChange={handleChange}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor='confirm'>Confirm Password:</label>
+          <label className={styles.label} htmlFor='confirm'>Confirm Password:</label>
           <input
             type='password'
             id='confirm'
@@ -72,10 +76,11 @@ const SignUpForm = () => {
             name='passwordConf'
             onChange={handleChange}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor='displayName'>Display Name:</label>
+          <label className={styles.label} htmlFor='displayName'>Display Name:</label>
           <input
             type='text'
             id='displayName'
@@ -83,22 +88,24 @@ const SignUpForm = () => {
             name='displayName'
             onChange={handleChange}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor='role'>Role:</label>
+          <label className={styles.label} htmlFor='role'>Role:</label>
           <select
             id='role'
             value={role}
             name='role'
             onChange={handleChange}
-            required >
+            required
+            className={styles.select} >
             <option value="Customer">Customer</option>
             <option value="Service Provider">Service Provider</option>
           </select>
         </div>
         <div>
-          <label htmlFor='email'>Email:</label>
+          <label className={styles.label} htmlFor='email'>Email:</label>
           <input
             type='text'
             id='email'
@@ -106,10 +113,11 @@ const SignUpForm = () => {
             name='email'
             onChange={handleChange}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor='phone'>Phone Number:</label>
+          <label className={styles.label} htmlFor='phone'>Phone Number:</label>
           <input
             type='text'
             id='phone'
@@ -117,21 +125,23 @@ const SignUpForm = () => {
             name='phone'
             onChange={handleChange}
             required
+            className={styles.input}
           />
         </div>
         <div>
-          <label htmlFor='avatar'>Avatar:</label>
+          <label className={styles.label} htmlFor='avatar'>Avatar:</label>
           <input
             type='text'
             id='avatar'
             value={avatar}
             name='avatar'
             onChange={handleChange}
+            className={styles.input}
           />
         </div>
         <div>
-          <button disabled={isFormInvalid()}>Sign Up</button>
-          <button onClick={() => navigate('/')}>Cancel</button>
+          <button className={styles.button} disabled={isFormInvalid()}>Sign Up</button>
+          <button className={styles.button} onClick={() => navigate('/')}>Cancel</button>
         </div>
       </form>
     </main>

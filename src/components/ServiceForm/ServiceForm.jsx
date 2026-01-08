@@ -2,6 +2,8 @@
 import { useState,useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import * as serviceService from '../../services/serviceService'
+import styles from './ServiceForm.module.css'
+import '../../app.css'
 
 function ServiceForm({ updateService, serviceToUpdate }) {
     const navigate = useNavigate()
@@ -73,11 +75,11 @@ function ServiceForm({ updateService, serviceToUpdate }) {
         }
     }
     return (
-        <main>
+        <main className={styles.main}>
             <h1>Service Form</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.form}>
                 <div>
-                    <label htmlFor='serviceName'>Service Name:</label>
+                    <label className={styles.label} htmlFor='serviceName'>Service Name:</label>
                     <input
                         type='text'
                         id='serviceName'
@@ -85,16 +87,18 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                         name='serviceName'
                         onChange={handleChange}
                         required
+                        className={styles.input}
                     />
                 </div>
                 <div>
-                    <label htmlFor='category'>Category:</label>
+                    <label className={styles.label} htmlFor='category'>Category:</label>
                     <select
                         id='category'
                         value={category}
                         name='category'
                         onChange={handleChange}
-                        required >
+                        required
+                        className={styles.select} >
                         <option value="Maintenance">Maintenance</option>
                         <option value="Education">Education</option>
                         <option value="Cooking">Cooking</option>
@@ -104,22 +108,24 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor='description'>Description:</label>
+                    <label className={styles.label} htmlFor='description'>Description:</label>
                     <textarea
                         id='description'
                         value={description}
                         name='description'
                         onChange={handleChange}
+                        className={styles.input}
                     />
                 </div>
                 <div>
-                    <label htmlFor='pricing'>Pricing:</label>
+                    <label className={styles.label} htmlFor='pricing'>Pricing:</label>
                     <select
                         id='pricing'
                         value={pricing}
                         name='pricing'
                         onChange={handleChange}
-                        required >
+                        required
+                        className={styles.select}>
                         <option value="Free">Free</option>
                         <option value="Fixed">Fixed</option>
                         <option value="Service Exchange">Service Exchange</option>
@@ -127,7 +133,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                 </div>
                 {pricing === 'Fixed' && (
                     <div>
-                        <label htmlFor='amount'>amount:</label>
+                        <label className={styles.label} htmlFor='Amount'>amount:</label>
                         <input
                             type='number'
                             id='amount'
@@ -135,13 +141,14 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                             name='amount'
                             onChange={handleChange}
                             required
+                            className={styles.input}
                         />
                     </div>
                 )}
 
                 <div>
-                    <button type="submit">{serviceToUpdate ? 'Update Service' : 'Create Service'}</button>
-                    <button onClick={() => navigate('/')}>Cancel</button>
+                    <button className={styles.button} type="submit">{serviceToUpdate ? 'Update Service' : 'Create Service'}</button>
+                    <button className={styles.button} onClick={() => navigate('/')}>Cancel</button>
                 </div>
             </form>
         </main>
