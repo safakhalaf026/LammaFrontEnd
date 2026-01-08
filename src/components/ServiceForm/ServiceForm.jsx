@@ -47,6 +47,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        if (!formState.category) window.alert('Cateogry is required')
         try {
             const position = await handleCoords()
             const lat = String(position.coords.latitude)
@@ -98,7 +99,8 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                         name='category'
                         onChange={handleChange}
                         required
-                        className={styles.select} >
+                        className={styles.select} >                        
+                        <option value="">Select Category</option>
                         <option value="Maintenance">Maintenance</option>
                         <option value="Education">Education</option>
                         <option value="Cooking">Cooking</option>
