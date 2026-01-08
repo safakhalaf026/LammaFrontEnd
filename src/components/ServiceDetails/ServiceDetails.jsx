@@ -46,7 +46,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   if (!service) return <p className='not-found'>Service not found</p>
 
   // checks if logged in user is owner of the service (via refrencing)
-  const isOwner = user?._id === service?.provider 
+  const isOwner = user?._id === service?.provider._id
 
   // checks if the logged in user has role === 'Service Provider' AND is the owner of the service
   const isServiceManager = user?.role === 'Service Provider' && isOwner
@@ -59,7 +59,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       <p>Total Reviews: {service.ratingStats?.count || 0}</p>
 
       {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
-      {isServiceManager ? (
+      {isOwner ? (
         <div className='action-buttons'>   
           <Link className='edit-btn' onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
           <button className='delete-btn' onClick={handleDelete}>Delete Service</button>

@@ -27,7 +27,7 @@ const App = () => {
       }
     }
     getAllServices()
-  },[])
+  },[user])
 
 
   const updateService = (service) =>{
