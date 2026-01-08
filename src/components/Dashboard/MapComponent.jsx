@@ -145,8 +145,25 @@ const services = serviceData;
                     
                 </div>`
             );
+
+        //لون كا خدمه
+        const categoryColors = {
+  'Maintenance': '#D32F2F',  // أحمر احترافي
+  'Education': '#1976D2',    // أزرق واضح
+  'Cooking': '#FFA000',      // برتقالي مائل للذهبي
+  'Tailoring': '#9C27B0',    // بنفسجي
+  'Programming': '#2E7D32',  // أخضر غامق
+  'Other': '#607274'         // رمادي هادئ
+};
+    
+
+        //   اللون اعتمادا على نوع الخدمة
+        const markerColor = categoryColors[service.category] 
         //  هنا رسم الماركر على الخريطة
-       const marker = new mapboxgl.Marker({ color: 'red' }) 
+
+            const marker = new mapboxgl.Marker({
+            color: markerColor
+            })            
             .setLngLat([longitude, latitude]) //الموقع
             .setPopup(popup)  //اضف النافذه المنبثقه
             .addTo(mapRef.current); // اضفه للخريطه
