@@ -4,9 +4,9 @@ import ReviewForm from '../ReviewForm/ReviewForm'
 import { UserContext } from '../../contexts/UserContext'
 import * as serviceService from '../../services/serviceService'
 import * as reviewService from '../../services/reviewService'
-import './ServiceDetails.css'
+import styles from './ServiceDetails.module.css'
 
-const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
+const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { serviceId } = useParams()
@@ -17,12 +17,8 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   const loadData = async () => {
     try {
       setLoading(true)
-
-      // Get service details
       const sRes = await serviceService.show(serviceId)
       setService(sRes)
-
-      // Get reviews
       const rRes = await reviewService.getReviews(serviceId)
       setReviews(rRes || [])
     } catch (error) {
@@ -36,59 +32,72 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
     loadData()
   }, [serviceId])
 
-  const handleDelete = async ()=>{
-    const deletedService = await serviceService.remove(serviceId)
+  const handleDelete = async () => {
+    await serviceService.remove(serviceId)
     deleteService(serviceId)
     navigate('/')
   }
 
-  if (loading) return <p className='loading'>Loading...</p>
-  if (!service) return <p className='not-found'>Service not found</p>
+  if (loading) return <p className={styles.loading}>Loading...</p>
+  if (!service) return <p className={styles.notFound}>Service not found</p>
 
-  // checks if logged in user is owner of the service (via refrencing)
-  const isOwner = user?._id === service?.provider 
-
-  // checks if the logged in user has role === 'Service Provider' AND is the owner of the service
+  const isOwner = user?._id === service?.provider
   const isServiceManager = user?.role === 'Service Provider' && isOwner
 
   return (
-    <div>
-      <h2>{service.serviceName}</h2>
-      <p className='review-text'>{service.description}</p>
-      <p>Average Rating: {service.ratingStats?.average || 0}</p>
-      <p>Total Reviews: {service.ratingStats?.count || 0}</p>
+    <div className={styles.container}>
+      {/* Service header */}
+      <h2 className={styles.h2}>{service.serviceName}</h2>
+      <p className={styles.reviewText}>{service.description}</p>
 
-      {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
-      {isServiceManager ? (
-        <div className='action-buttons'>   
-          <Link className='edit-btn' onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
-          <button className='delete-btn' onClick={handleDelete}>Delete Service</button>
+      {/* Stats */}
+      <div className={styles.statBoxWrapper}>
+        <div className={styles.statBox}>
+          <h4>Average Rating</h4>
+          <div>{service.ratingStats?.average || 0}</div>
         </div>
-      ):null}
-
-
-      <h3>Reviews</h3>
-      <div>
-        <div className="review-grid">
-          {reviews.map(r => (
-            <div key={r._id} className='review-card'>
-               <div className="stars">
--                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
--               </div>
-              <p className='review-text'>{r.comment}</p>
-              <span className="reviewer-name">{r.customer?.displayName}</span>
-            </div>
-          ))}
+        <div className={styles.statBox}>
+          <h4>Total Reviews</h4>
+          <div>{service.ratingStats?.count || 0}</div>
         </div>
       </div>
 
-      {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
-      {!isOwner? (
-        <div className="review-form-container">
+      {/* Action buttons for service owner */}
+      {isServiceManager && (
+        <div className={styles.actionButtons}>
+          <Link
+            className={styles.editBtn}
+            onClick={() => findServicesToUpdate(serviceId)}
+            to={`/service/${serviceId}/update`}
+          >
+            Edit
+          </Link>
+          <button className={styles.deleteBtn} onClick={handleDelete}>
+            Delete Service
+          </button>
+        </div>
+      )}
+
+      {/* Reviews section */}
+      <h3 className={styles.h3}>Reviews</h3>
+      <div className={styles.reviewGrid}>
+        {reviews.map((r) => (
+          <div key={r._id} className={styles.reviewCard}>
+            <div className={styles.stars}>
+              {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
+            </div>
+            <p className={styles.reviewText}>{r.comment}</p>
+            <span className={styles.reviewerName}>{r.customer?.displayName}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Review form for non-owners */}
+      {!isOwner && (
+        <div className={styles.reviewFormContainer}>
           <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
         </div>
-      ): null}
-      
+      )}
     </div>
   )
 }

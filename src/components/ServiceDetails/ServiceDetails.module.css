@@ -1,0 +1,139 @@
+/* 1. الخلفية العامة: تدرج لوني "Mesh" يتحرك بنعومة */
+body {
+    background: radial-gradient(at 0% 0%, #e8f5e9 0, transparent 50%), 
+                radial-gradient(at 50% 0%, #fdf5e6 0, transparent 50%), 
+                radial-gradient(at 100% 0%, #f0fff0 0, transparent 50%);
+    background-attachment: fixed;
+}
+
+/* 2. الحاوية الرئيسية: تأثير الزجاج الشفاف (Glassmorphism) */
+div:has(> h2) {
+    max-width: 850px;
+    margin: 60px auto;
+    padding: 50px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 25px 50px -12px rgba(74, 103, 65, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+/* إضافة لمسة فنية خلف العنوان */
+div:has(> h2)::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: rgba(210, 125, 86, 0.1); /* لون التراكوتا خفيف */
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: -1;
+}
+
+/* 3. اسم الخدمة: خط ضخم بلمسة "High Fashion" */
+h2 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(to right, #2d5a27, #D27D56);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+    margin-bottom: 20px;
+}
+
+/* 4. إحصائيات التقييم: كبسولات عائمة */
+p:nth-of-type(2), p:nth-of-type(3) {
+    display: inline-flex;
+    align-items: center;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin-right: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    font-weight: 700;
+    color: #4a6741;
+    border-bottom: 3px solid #D27D56; /* خط تراكوتا تحت الرقم */
+}
+
+/* 5. المراجعات: نمط "الفقاعات المتفاعلة" */
+.review {
+    background: rgba(255, 255, 255, 0.9);
+    margin-top: 30px;
+    padding: 25px;
+    border-radius: 30px 30px 30px 5px; /* شكل فقاعة كلام */
+    border: 1px solid #f0f0f0;
+    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.02);
+}
+
+.review:hover {
+    transform: translateY(-10px) rotate(1deg);
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(74, 103, 65, 0.1);
+}
+
+/* النجوم: تأثير "Glow" ذهبي */
+.review p:nth-child(1) {
+    font-size: 1.2rem;
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    letter-spacing: 3px;
+}
+
+/* الكومنت: خط أنيق متباعد */
+.review p:nth-child(2) {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #444;
+    margin: 15px 0;
+}
+
+/* كاتب التعليق: يظهر كأنه "توقيع" */
+.review p:nth-child(3) {
+    text-align: right;
+    font-weight: bold;
+    color: #D27D56;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 6. الأزرار: تأثير "المغناطيس" */
+a[href*="update"] {
+    background: #4a6741;
+    color: white !important;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    box-shadow: 0 10px 20px rgba(74, 103, 65, 0.3);
+    transition: 0.3s;
+}
+
+a[href*="update"]:hover {
+    letter-spacing: 2px;
+    box-shadow: 0 15px 30px rgba(74, 103, 65, 0.5);
+}
+
+button {
+    background: none;
+    border: 2px solid #ff4d4f;
+    color: #ff4d4f;
+    padding: 15px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff4d4f;
+    color: white;
+}
