@@ -59,29 +59,15 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       <p>Total Reviews: {service.ratingStats?.count || 0}</p>
 
       {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
-<<<<<<< HEAD
       {isOwner ? (
-        <div>   
-          <Link onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
-          <button onClick={handleDelete}>Delete Service</button>
-=======
-      {isServiceManager ? (
         <div className='action-buttons'>   
           <Link className='edit-btn' onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
           <button className='delete-btn' onClick={handleDelete}>Delete Service</button>
->>>>>>> main
         </div>
       ):null}
 
 
       <h3>Reviews</h3>
-<<<<<<< HEAD
-      {reviews.map(r => (
-        <div key={r._id}>
-          <p>Rating: {r.rating}</p>
-          <p>Comment: {r.comment}</p>
-          <p>By: {r.customer?.username}</p>
-=======
       <div>
         <div className="review-grid">
           {reviews.map(r => (
@@ -93,19 +79,14 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
               <span className="reviewer-name">{r.customer?.displayName}</span>
             </div>
           ))}
->>>>>>> main
         </div>
       </div>
 
       {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
       {!isOwner? (
-<<<<<<< HEAD
-        <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
-=======
         <div className="review-form-container">
           <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
         </div>
->>>>>>> main
       ): null}
       
     </div>
