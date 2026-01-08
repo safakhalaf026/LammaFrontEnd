@@ -1,8 +1,11 @@
+import styles from './Landing.module.css'
+import '../../app.css'
+
 const Landing = () => {
   return (
-    <main>
-      <h1>Hello, you are on the landing page for visitors.</h1>
-      <p>Sign up now, or sign in to see your super secret dashboard!</p>
+    <main className={styles.main}>
+      <h1>Welcome to Lamma !</h1>
+      <p>The social app that connects neighbours with </p>
     </main>
   );
 };
