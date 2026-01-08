@@ -72,25 +72,29 @@ const Dashboard = () => {
 
     return (
         <>
-            <main>
-                <h1>Welcome, {user?.username}</h1>
-                <p>
-                    This is the dashboard page where you can see a list of all the users.
-                </p>
-                <p><strong>{message}</strong></p>
-                
-                {user?.role === 'Service Provider' && (
-                    <button 
-                        onClick={() => handleAddService() }
-                    >
-                        Add New Service
-                    </button>
-                )}
-            </main>
+            <div className="layout-container">
 
-            <div>
+                <div className="header-info">
+                <h1>Welcome, {user?.displayName} </h1>
+                <p>
+                    Discover available services around you using the interactive map below.
+                    Browse, compare, and choose the service that best fits your needs.
+                </p>
+                </div>
+            <div className="services">
+                  {user?.role === 'Service Provider' && (
+                    <button 
+                        onClick={() => handleAddService() } >
+                     Add New Service        
+                   </button>
+                )}
+            </div>
+
+            <div className="map-area">
                 <MapComponent userLocation={userLocation} />
             </div>
+            </div>
+
         </>
     )
 }

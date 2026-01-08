@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect, useRef, useCallback ,useNavigate } from 'react'
 import mapboxgl from 'mapbox-gl'
 import axios from 'axios'
@@ -58,8 +57,8 @@ useEffect(() => {
         mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            center: center,
-            zoom: zoom,
+            // center: center,
+            // zoom: zoom,
             style: 'mapbox://styles/mapbox/standard',
         });
        // تحديث موقع الخريطة
@@ -144,10 +143,6 @@ const services = serviceData;
                         <span>⭐ ${service.ratingStats?.average || 0} (${service.ratingStats?.count || 0})</span>
                     </div>
                     
-                    
-                    <button id="view-btn-${service._id}" class="popup-btn" >
-                        Details
-                    </button>
                 </div>`
             );
         //  هنا رسم الماركر على الخريطة
@@ -183,17 +178,8 @@ const services = serviceData;
 
     return (
        <>
-        <button className='reset-button' onClick={handleReset}>
-            Reset
-        </button>
-
-        <div className="sidebar">
-            Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
-        </div>
-
-        <div id='map-container' ref={mapContainerRef} />
-
-        <div className='servicesList'>
+        <div className="map-area"> 
+            <div className='servicesList'>
         {serviceData.map(service => (
             //id مهم لعمل scroll
             <div key={service._id}  id={`service-card-${service._id}`}>    
@@ -202,9 +188,21 @@ const services = serviceData;
                 isActive={activeServiceId === service._id}
                 />
             </div>
-        ))}
+                ))}
+            </div>
+
+            
+        <button className='reset-button' onClick={handleReset}>
+            Reset the map of Bahrain
+        </button>
+
+        <div className="sidebar">
+            Longitude: {center[0].toFixed(4)} | Latitude: {center[1].toFixed(4)} | Zoom: {zoom.toFixed(2)}
         </div>
 
+        <div id='map-container' ref={mapContainerRef} />
+
+        </div>
 
     </>
     )
