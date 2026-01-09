@@ -7,6 +7,9 @@ import styles from "./MapComponent.module.css"
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'; //للبحث في الخريطه
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import MapboxLanguage from '@mapbox/mapbox-gl-language'; //للغه
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+
 
 
 const INITIAL_CENTER = [ 50.5069 , 26.0642]
@@ -239,28 +242,36 @@ const services = serviceData;
     return (
        
       <> 
-    <div style={{ height: "100vh", width: "100%", padding: "20px" }}>
+    <div style={{ height: "100vh", width: "100%", padding: "10px" }}>
       
       {/* أزرار تغيير اللغة */}
-      <div style={{ padding: "10px", display: "flex", gap: "10px" }}>
-        <button onClick={() => changeLanguage("en")}>English</button>
-        <button onClick={() => changeLanguage("fr")}>Français</button>
-        <button onClick={() => changeLanguage("de")}>Deutsch</button>
-        <button onClick={() => changeLanguage("ar")}>العربية</button>
-      </div>
+        <div className={styles.languagesContainer}>
+            <button className={styles.langBtn} onClick={() => changeLanguage("en")}>English</button>
+            <button className={styles.langBtn} onClick={() => changeLanguage("fr")}>Français</button>
+            <button className={styles.langBtn} onClick={() => changeLanguage("de")}>Deutsch</button>
+            <button className={`${styles.langBtn} ${styles.langBtnAr}`} onClick={() => changeLanguage("ar")}>العربية</button>
+        </div>
 
       <div className={styles['map-area']}>
-         <div className={styles.servicesList}>
+        <SimpleBar style={{ maxHeight: "100%" }}>
+         <div className={styles.servicesList} >
             {serviceData.map(service => (
             //id مهم لعمل scroll
-            <div key={service._id}  id={`service-card-${service._id}`}>    
-            <ServiceCard
+            
+                <ServiceCard
                 service={service}
-                isActive={activeServiceId === service._id}
+                isActive={activeServiceId === service._id}  
+                key={service.id}              
                 />
-            </div>
-                ))}
+           
+           
+                ))} 
+               
         </div>
+        <div style={{ height:'350px' }}> 
+            <p style={{marginLeft:"55px",fontSize:"10px"}}>  No more Service</p>
+              </div>
+         </SimpleBar>
 
             
         <button className={styles['reset-button']} onClick={handleReset}>

@@ -1,7 +1,5 @@
-/* Dashboard.module.css */
 
 .layout-container {
-  /* العرض أصبح الآن مركزاً جداً ومريحاً للعين */
   max-width: 850px; 
   margin: 50px auto; 
   padding: 0 20px;
@@ -11,36 +9,34 @@
   gap: 25px; 
 }
 
-/* ===== الهيدر: تصميم مدمج وفخم مع أنيميشن ===== */
 .header-info {
   text-align: center;
   padding: 35px 25px;
   background: #ffffff;
   border-radius: 24px;
-  /* ظلال "Mega Shadow" تعطي عمقاً ثلاثي الأبعاد */
   box-shadow: 
     0 10px 20px rgba(0, 0, 0, 0.04),
     0 30px 60px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(241, 245, 249, 0.8);
   
-  /* أنيميشن دخول ناعم */
   animation: premiumFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
 }
 
 .header-info h1 {
-  font-size: 2.1rem; /* حجم خط متناسق مع العرض المصغر */
+  font-size: 2.1rem; 
   font-weight: 800;
   color: #020617;
   margin: 0;
   letter-spacing: -1.2px;
 }
-
 .header-info h1 span {
-  /* تدرج لوني عميق واحترافي */
   background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+  background-clip: text;
   -webkit-background-clip: text;
+  color: transparent;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 .header-info p {
@@ -51,7 +47,6 @@
   font-size: 1rem;
 }
 
-/* ===== الأزرار: وضعية تطفو فوق الخريطة بقليل ===== */
 .services {
   display: flex;
   justify-content: center;
@@ -80,22 +75,19 @@
   box-shadow: 0 15px 35px rgba(37, 99, 235, 0.35);
 }
 
-/* ===== منطقة الخريطة: تركيز كامل وشكل الـ Card ===== */
 .map-area {
   width: 100%;
-  height: 450px; /* ارتفاع متوازن مع العرض المصغر */
+  height: 450px; 
   border-radius: 28px;
   overflow: hidden;
   background: #ffffff;
   border: 10px solid #ffffff; 
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
   
-  /* أنيميشن يظهر في النهاية */
   animation: premiumFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
   opacity: 0;
 }
 
-/* ===== الكي فريم للأنيميشن ===== */
 @keyframes premiumFadeIn {
   0% {
     opacity: 0;
@@ -107,7 +99,6 @@
   }
 }
 
-/* التجاوب مع الجوال */
 @media (max-width: 768px) {
   .layout-container {
     margin: 25px auto;
