@@ -12,8 +12,8 @@ import 'simplebar-react/dist/simplebar.min.css';
 
 
 
-const INITIAL_CENTER = [ 50.5069 , 26.0642]
-const INITIAL_ZOOM =  9.14
+const INITIAL_CENTER = [ 50.5934 , 25.8356 ]
+const INITIAL_ZOOM =  8.91
 
 const MapComponent = ({ userLocation }) => {
 
@@ -257,13 +257,13 @@ const services = serviceData;
          <div className={styles.servicesList} >
             {serviceData.map(service => (
             //id مهم لعمل scroll
-            
+              <div id={`service-card-${service._id}`} key={service._id}>
                 <ServiceCard
                 service={service}
                 isActive={activeServiceId === service._id}  
                 key={service.id}              
                 />
-           
+           </div>
            
                 ))} 
                
