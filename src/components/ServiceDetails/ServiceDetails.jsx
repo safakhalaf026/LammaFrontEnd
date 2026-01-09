@@ -6,7 +6,7 @@ import * as serviceService from '../../services/serviceService'
 import * as reviewService from '../../services/reviewService'
 import styles from './ServiceDetails.module.css' 
 
-const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
+const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { serviceId } = useParams()
@@ -36,7 +36,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
     loadData()
   }, [serviceId])
 
-  const handleDelete = async ()=>{
+  const handleDelete = async () => {
     const deletedService = await serviceService.remove(serviceId)
     deleteService(serviceId)
     navigate('/')
@@ -81,7 +81,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
             Delete Service
           </button>
         </div>
-      ):null}
+      ) : null}
 
 
       <h3 className={styles.sectionTitle}>Reviews</h3>
@@ -102,8 +102,8 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
         <div className={styles.reviewFormContainer}>
           <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
         </div>
-      ): null}
-      
+      ) : null}
+
     </div>
   )
 }

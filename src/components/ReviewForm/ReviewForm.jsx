@@ -1,19 +1,19 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { submitReview } from '../../services/reviewService'
-import styles from './ReviewForm.module.css' 
-
+import styles from './ReviewForm.module.css'
+import '../../app.css'
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [rating, setRating] = useState(5)
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     // Basic validation
     if (rating < 1 || rating > 5) {
-      alert('Rating must be between 1 and 5.')
       return
     }
 

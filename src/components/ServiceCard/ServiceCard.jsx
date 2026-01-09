@@ -13,7 +13,7 @@ function ServiceCard({service, isActive}) {
 
       <div id={styles['card-header']}> 
         <img 
-            src={service.provider.avatar ||defaultAvatar } 
+            src={service.provider.avatar? service.provider.avatar : defaultAvatar } 
             alt={service.provider.username} 
             className={styles.avatar}
         />
