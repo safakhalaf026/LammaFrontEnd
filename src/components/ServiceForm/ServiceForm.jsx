@@ -135,7 +135,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                 </div>
                 {pricing === 'Fixed' && (
                     <div>
-                        <label className={styles.label} htmlFor='Amount'>amount:</label>
+                        <label className={styles.label} htmlFor='amount'>Amount:</label>
                         <input
                             type='number'
                             id='amount'
