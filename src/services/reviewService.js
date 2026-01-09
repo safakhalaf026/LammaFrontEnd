@@ -7,7 +7,7 @@ const authConfig = () => ({
 })
 
 // Submit a new review for a service
-export const submitReview = async (serviceId, formData) => {
+ const submitReview = async (serviceId, formData) => {
   const token = localStorage.getItem("token")
   if (!token) throw new Error("User is not authenticated")
 
@@ -16,12 +16,17 @@ export const submitReview = async (serviceId, formData) => {
     ...formData,
   }
 
-  const res = await axios.post(`${BASE_URL}`, payload, authConfig())
+  const res = await axios.post(`${BASE_URL}/${serviceId}`, payload, authConfig())
   return res.data
 }
 
 // Get all reviews for a specific service
-export const getReviews = async (serviceId) => {
+  const getReviews = async (serviceId) => {
   const res = await axios.get(`${BASE_URL}/${serviceId}`, authConfig())
-  return res.data.reviews
+  return res.data.allReviews
+}
+
+export {
+  submitReview,
+  getReviews
 }
