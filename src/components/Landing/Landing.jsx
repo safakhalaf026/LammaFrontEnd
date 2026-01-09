@@ -1,21 +1,31 @@
 import styles from './Landing.module.css'
 import '../../app.css'
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
 
 const Landing = () => {
   const navigate = useNavigate()
+
   return (
     <main className={styles.main}>
-      <h1>Welcome to Lamma !</h1>
-      <p>The social app that connects neighbours with each other to provide services </p>
-      <p>To Start </p>
+
+      <div className={styles.features}>
+        <p>Discover services nearby</p>
+        <span className={styles.divider} />
+        <p>Offer your skills</p>
+        <span className={styles.divider} />
+        <p>Build trust through reviews</p>
+      </div>
+
+      <h1 className={styles.title}>Welcome to Lamma</h1>
+      <p className={styles.subtitle}> A simple way for neighbours to connect and offer local services.</p>
+
       <div className={styles.buttonDivs}>
-        <button className={styles.button} onClick={() => navigate('/sign-up')}> Sign Up</button>
-        <button className={styles.button} onClick={() => navigate('/sign-in')}> Sign In</button>
+        <button className={styles.primaryBtn} onClick={() => navigate('/sign-up')}> Create an account </button>
+        <button className={styles.secondaryBtn} onClick={() => navigate('/sign-in')}>Sign In</button>
       </div>
     </main>
-  );
-};
+  )
+}
 
-export default Landing;
+export default Landing
 
