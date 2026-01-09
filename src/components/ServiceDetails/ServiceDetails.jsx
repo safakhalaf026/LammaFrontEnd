@@ -76,7 +76,7 @@ const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
                 -                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
                 -               </div>
               <p className='review-text'>{r.comment}</p>
-              <span className="reviewer-name">{r.customer?.displayName}</span>
+              <span className="reviewer-name">{r.customer?.username}</span>
             </div>
           ))}
         </div>

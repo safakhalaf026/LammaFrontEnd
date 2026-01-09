@@ -47,7 +47,6 @@ function ServiceForm({ updateService, serviceToUpdate }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if (!formState.category) window.alert('Cateogry is required')
         try {
             const position = await handleCoords()
             const lat = String(position.coords.latitude)
@@ -72,7 +71,8 @@ function ServiceForm({ updateService, serviceToUpdate }) {
             }
         } catch (err) {
             console.log('Geolocation or submit failed:', err)
-            alert('Please allow location access to create a service.')
+            setPopupMsg('Please allow location access to create a service.')
+            setPopupOpen(true)
         }
     }
     return (

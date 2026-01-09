@@ -8,12 +8,12 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [comment, setComment] = useState('')
   const [loading, setLoading] = useState(false)
 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     // Basic validation
     if (rating < 1 || rating > 5) {
-      alert('Rating must be between 1 and 5.')
       return
     }
 
