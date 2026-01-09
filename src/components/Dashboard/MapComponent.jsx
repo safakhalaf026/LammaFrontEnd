@@ -6,6 +6,8 @@ import ServiceCard from '../ServiceCard/ServiceCard'
 import styles from "./MapComponent.module.css"
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'; //للبحث في الخريطه
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import MapboxLanguage from '@mapbox/mapbox-gl-language'; //للغه
+
 
 const INITIAL_CENTER = [ 50.5069 , 26.0642]
 const INITIAL_ZOOM =  9.14
@@ -61,7 +63,8 @@ useEffect(() => {
             container: mapContainerRef.current,
             // center: center,
             // zoom: zoom,
-            style: 'mapbox://styles/mapbox/standard',
+           style: "mapbox://styles/mapbox/streets-v11"
+
         });
        // تحديث موقع الخريطة
         mapRef.current.on('move', () => {
@@ -115,6 +118,34 @@ useEffect(() => {
     }
     
     }, [userLocation]);
+    
+    // تغيير لغة أسماء الدول
+    useEffect(() => {
+    if (!mapRef.current) return;
+
+    const languageControl = new MapboxLanguage({
+        defaultLanguage: 'en' 
+    });
+
+    mapRef.current.addControl(languageControl);
+    }, []);
+
+    const changeLanguage = (lang) => {
+  if (!mapRef.current) return;
+
+    const layers = mapRef.current.getStyle().layers;
+
+    layers.forEach(layer => {
+        if (layer.layout && layer.layout['text-field']) {
+        mapRef.current.setLayoutProperty(
+            layer.id,
+            'text-field',
+            ['get', `name_${lang}`]
+        );
+        }
+        });
+        };
+
 
 
 
@@ -206,10 +237,21 @@ const services = serviceData;
 }, [serviceData]); // فقط عند تغير البيانات
 
     return (
-       <>
-        <div className={styles['map-area']}> 
-            <div className={styles.servicesList}>
-        {serviceData.map(service => (
+       
+      <> 
+    <div style={{ height: "100vh", width: "100%", padding: "20px" }}>
+      
+      {/* أزرار تغيير اللغة */}
+      <div style={{ padding: "10px", display: "flex", gap: "10px" }}>
+        <button onClick={() => changeLanguage("en")}>English</button>
+        <button onClick={() => changeLanguage("fr")}>Français</button>
+        <button onClick={() => changeLanguage("de")}>Deutsch</button>
+        <button onClick={() => changeLanguage("ar")}>العربية</button>
+      </div>
+
+      <div className={styles['map-area']}>
+         <div className={styles.servicesList}>
+            {serviceData.map(service => (
             //id مهم لعمل scroll
             <div key={service._id}  id={`service-card-${service._id}`}>    
             <ServiceCard
@@ -218,7 +260,7 @@ const services = serviceData;
                 />
             </div>
                 ))}
-            </div>
+        </div>
 
             
         <button className={styles['reset-button']} onClick={handleReset}>
@@ -231,9 +273,10 @@ const services = serviceData;
 
         <div id={styles["map-container"]} ref={mapContainerRef}  />
 
-        </div>
-
-    </>
+    </div>
+</div>
+</>
+    
     )
 };
 
