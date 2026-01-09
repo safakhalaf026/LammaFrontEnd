@@ -26,7 +26,7 @@ const App = () => {
         console.log(err)
       }
     }
-    getAllServices()
+    if (user) getAllServices()
   },[user])
 
 
