@@ -1,0 +1,56 @@
+.wrapper {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Section title */
+.title {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2f4d;
+}
+
+/* Form layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+}
+
+/* Field group */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Labels */
+.field label {
+  font-size: 13px;
+  color: #444;
+}
+
+/* Inputs */
+.field input,
+.field textarea {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+/* Focus */
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #888;
+}
+
+/* Textarea height */
+.field textarea {
+  min-height: 80px;
+}

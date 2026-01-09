@@ -6,7 +6,7 @@ import * as serviceService from '../../services/serviceService'
 import * as reviewService from '../../services/reviewService'
 import './ServiceDetails.css'
 
-const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
+const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
   const { serviceId } = useParams()
@@ -36,7 +36,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
     loadData()
   }, [serviceId])
 
-  const handleDelete = async ()=>{
+  const handleDelete = async () => {
     const deletedService = await serviceService.remove(serviceId)
     deleteService(serviceId)
     navigate('/')
@@ -46,7 +46,7 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
   if (!service) return <p className='not-found'>Service not found</p>
 
   // checks if logged in user is owner of the service (via refrencing)
-  const isOwner = user?._id === service?.provider 
+  const isOwner = user?._id === service?.provider._id
 
   // checks if the logged in user has role === 'Service Provider' AND is the owner of the service
   const isServiceManager = user?.role === 'Service Provider' && isOwner
@@ -59,12 +59,12 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       <p>Total Reviews: {service.ratingStats?.count || 0}</p>
 
       {/* edit/delete service functionality wont be shown if the logged in user is not the owner and has  */}
-      {isServiceManager ? (
-        <div className='action-buttons'>   
-          <Link className='edit-btn' onClick={()=> findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
+      {isOwner ? (
+        <div className='action-buttons'>
+          <Link className='edit-btn' onClick={() => findServicesToUpdate(serviceId)} to={`/service/${serviceId}/update`}>Edit</Link>
           <button className='delete-btn' onClick={handleDelete}>Delete Service</button>
         </div>
-      ):null}
+      ) : null}
 
 
       <h3>Reviews</h3>
@@ -72,9 +72,9 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
         <div className="review-grid">
           {reviews.map(r => (
             <div key={r._id} className='review-card'>
-               <div className="stars">
--                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
--               </div>
+              <div className="stars">
+                -                  {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
+                -               </div>
               <p className='review-text'>{r.comment}</p>
               <span className="reviewer-name">{r.customer?.displayName}</span>
             </div>
@@ -83,12 +83,12 @@ const ServiceDetails = ({findServicesToUpdate,deleteService}) => {
       </div>
 
       {/* if the logged in user is NOT the owner of the service, the review form component will load   */}
-      {!isOwner? (
+      {!isOwner ? (
         <div className="review-form-container">
           <ReviewForm serviceId={serviceId} onSubmitted={loadData} />
         </div>
-      ): null}
-      
+      ) : null}
+
     </div>
   )
 }

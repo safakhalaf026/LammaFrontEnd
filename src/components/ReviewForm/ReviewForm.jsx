@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { submitReview } from '../../services/reviewService'
+import styles from './ReviewForm.module.css'
+import '../../app.css'
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
   const [rating, setRating] = useState(5)
@@ -38,33 +40,37 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginTop: 16 }}>
-      <div>
-        <label htmlFor="rating">Rating</label>
-        <input
-          id="rating"
-          type="number"
-          min="1"
-          max="5"
-          value={rating}
-          onChange={(e) => setRating(e.target.value)}
-          disabled={loading}
-        />
-      </div>
-      <div>
-        <label htmlFor="comment">Comment</label>
-        <textarea
-          id="comment"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Write your comment..."
-          disabled={loading}
-        />
-      </div>
-      <button type="submit" disabled={loading}>
-        {loading ? 'Submitting...' : 'Submit Review'}
-      </button>
-    </form>
+    <main className= {styles.wrapper}>
+      <h4 className={styles.title}>Leave a Review</h4>
+      <form className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.field}> 
+          <label htmlFor="rating">Rating</label>
+          <input
+            id="rating"
+            type="number"
+            min="1"
+            max="5"
+            value={rating}
+            onChange={(e) => setRating(e.target.value)}
+            disabled={loading}
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="comment">Comment</label>
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Write your comment..."
+            disabled={loading}
+          />
+        </div>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Submitting...' : 'Submit Review'}
+        </button>
+      </form>
+    </main>
+
   )
 }
 
