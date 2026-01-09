@@ -13,7 +13,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
         category: '',
         description: '',
         pricing: 'Free',
-        amount: '',
+        amount: 0,
         latitude: '',
         longitude: '',
     })

@@ -1,39 +1,32 @@
 .wrapper {
+  max-width: 420px;
   margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
 }
 
-/* Section title */
 .title {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   font-size: 16px;
   font-weight: 500;
-  color: #1f2f4d;
+  color: #222;
 }
 
-/* Form layout */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-width: 420px;
+  gap: 16px;
 }
 
-/* Field group */
 .field {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-/* Labels */
 .field label {
   font-size: 13px;
   color: #444;
 }
 
-/* Inputs */
 .field input,
 .field textarea {
   padding: 8px 10px;
@@ -43,14 +36,31 @@
   resize: vertical;
 }
 
-/* Focus */
 .field input:focus,
 .field textarea:focus {
   outline: none;
   border-color: #888;
 }
 
-/* Textarea height */
 .field textarea {
   min-height: 80px;
+}
+
+.form button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border: 1px solid #9fb3e0;
+  background-color: #c7d6f2;
+  color: #1f2f4d;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.form button:hover {
+  background-color: #b8cbec;
+}
+
+.form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
