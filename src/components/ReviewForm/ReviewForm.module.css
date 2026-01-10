@@ -76,36 +76,16 @@ textarea::placeholder {
 }
 
 .button {
-  padding: 10px 24px;
-  font-size: 0.9rem;
-  font-weight: 500; /* خط غير سميك جداً ليبقى رسمياً */
-  border-radius: 6px;
-  border: 1px solid transparent;
+  padding: 8px 14px;
+  font-size: 14px;
+  border: 1px solid #9fb3e0;
+  background-color: #c7d6f2;
+  color: #1f2f4d;
   cursor: pointer;
-  background: #111827; /* أسود كربوني رسمي */
-  color: #ffffff;
-  transition: all 0.2s ease;
-  width: fit-content;
-  align-self: flex-start;
+  border-radius: 4px;
 }
 
-.button:hover:not(:disabled) {
-  background: #1f2937;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+.button:hover {
+  background-color: #b8cbec;
 }
 
-.button:disabled {
-  background: #f3f4f6;
-  color: #9ca3af;
-  cursor: not-allowed;
-}
-
-/* تحسينات الخط للشاشات الصغيرة */
-@media (max-width: 480px) {
-  .form {
-    padding: 24px;
-  }
-  .label {
-    font-size: 0.85rem;
-  }
-}
