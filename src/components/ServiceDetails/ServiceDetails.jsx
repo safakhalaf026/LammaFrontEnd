@@ -103,6 +103,16 @@ const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
             <span className={styles.detailLabel}>Pricing</span>
             <span className={styles.detailValue}>{pricingText}</span>
           </div>
+
+          <div className={styles.detailItem}>
+            <span className={styles.detailLabel}>Contact Email</span>
+            <span className={styles.detailValue}>{service.provider?.email}</span>
+          </div>
+
+          <div className={styles.detailItem}>
+            <span className={styles.detailLabel}>Conatct Phone</span>
+            <span className={styles.detailValue}>{service.phone}</span>
+          </div>
         </div>
       </div>
 
