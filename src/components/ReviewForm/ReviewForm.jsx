@@ -13,11 +13,6 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // Basic validation
-    if (rating < 1 || rating > 5) {
-      return
-    }
-
     try {
       setLoading(true)
       await submitReview(serviceId, { rating: Number(rating), comment })
