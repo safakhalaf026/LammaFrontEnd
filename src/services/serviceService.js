@@ -4,13 +4,13 @@ import axios from "axios";
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/service`
 
 const authConfig = () => ({
-  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
 })
 
 // retrieve all services
-const index = async ()=>{
+const index = async () => {
     try {
-        const response = await axios.get(BASE_URL,authConfig())
+        const response = await axios.get(BASE_URL, authConfig())
         return response.data.services
     } catch (err) {
         console.log(err)
@@ -18,9 +18,9 @@ const index = async ()=>{
 }
 
 // retrieve ONE service
-const show = async (serviceId)=>{
+const show = async (serviceId) => {
     try {
-        const response = await axios.get(`${BASE_URL}/${serviceId}`,authConfig())
+        const response = await axios.get(`${BASE_URL}/${serviceId}`, authConfig())
         return response.data.service
     } catch (error) {
         console.log(error)
@@ -28,9 +28,9 @@ const show = async (serviceId)=>{
 }
 
 // create new service
-const create = async (formData)=>{
+const create = async (formData) => {
     try {
-        const response = await axios.post(BASE_URL,formData, authConfig())
+        const response = await axios.post(BASE_URL, formData, authConfig())
 
         return response.data.service
     } catch (error) {
@@ -39,10 +39,10 @@ const create = async (formData)=>{
 }
 
 // edit service
-const update = async (petId, formData)=>{
+const update = async (petId, formData) => {
     try {
-        const response = await axios.put(`${BASE_URL}/${petId}`,formData,authConfig())
-        
+        const response = await axios.put(`${BASE_URL}/${petId}`, formData, authConfig())
+
         return response.data.service
     } catch (error) {
         console.log(error)
@@ -50,10 +50,10 @@ const update = async (petId, formData)=>{
 }
 
 // delete service
-const remove = async (petId)=>{
+const remove = async (petId) => {
     try {
-        const response = await axios.delete(`${BASE_URL}/${petId}`,authConfig())
-        
+        const response = await axios.delete(`${BASE_URL}/${petId}`, authConfig())
+
         return response.data.service
     } catch (error) {
         console.log(error)

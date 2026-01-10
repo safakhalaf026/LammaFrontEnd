@@ -45,10 +45,9 @@ const Dashboard = () => {
         navigate('/service/new')
     };
 
-    //لاخذ موقع المستخدم و تتبعه
     useEffect(() => {
-        // طلب ومراقبة موقع المستخدم بشكل مستمر
-        const watchId = navigator.geolocation.watchPosition(   //watchPosition لتتبع الموقع باستمرار 
+        // retrieve and track logged in user location
+        const watchId = navigator.geolocation.watchPosition(   
             (position) => {
                 setUserLocation({
                     lat: position.coords.latitude,
@@ -63,7 +62,7 @@ const Dashboard = () => {
             }
         );
 
-        //   ايقاف المراقبه عند الخروج من الصفحه
+        // stop tracking location
         return () => {
             navigator.geolocation.clearWatch(watchId);
         };
