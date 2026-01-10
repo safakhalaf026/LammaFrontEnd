@@ -1,8 +1,9 @@
 // Safa Khalaf
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import * as serviceService from '../../services/serviceService'
 import styles from './ServiceForm.module.css'
+import Swal from 'sweetalert2';
 import '../../app.css'
 
 function ServiceForm({ updateService, serviceToUpdate }) {
@@ -58,7 +59,10 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                 if (updatedService) {
                     navigate(`/service/${serviceId}`)
                 } else {
-                    console.log('Update failed')
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed to update service",
+                    })
                 }
             } else {
                 const data = await serviceService.create(newFormState)
@@ -66,13 +70,17 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                     updateService(data)
                     navigate(`/service/${data._id}`)
                 } else {
-                    console.log('Create failed')
+                    Swal.fire({
+                        icon: "error",
+                        title: "Failed to create service",
+                    })
                 }
             }
         } catch (err) {
-            console.log('Geolocation or submit failed:', err)
-            setPopupMsg('Please allow location access to create a service.')
-            setPopupOpen(true)
+            Swal.fire({
+                icon: "error",
+                title: "Please allow location services",
+            })
         }
     }
     return (
@@ -99,7 +107,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
                         name='category'
                         onChange={handleChange}
                         required
-                        className={styles.select} >                        
+                        className={styles.select} >
                         <option value="">Select Category</option>
                         <option value="Maintenance">Maintenance</option>
                         <option value="Education">Education</option>

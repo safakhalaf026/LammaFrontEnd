@@ -30,7 +30,6 @@ const Dashboard = () => {
                 // Take the response data and show message
                 setMessage(data.message)
             } catch (err) {
-                console.log(err)
             }
         }
 

@@ -46,10 +46,7 @@ const MapComponent = ({ userLocation }) => {
             });
             const responseService = response.data.services
             setServiceData(responseService);
-            console.log(responseService);
-            console.log(response.data);
         } catch (error) {
-            console.error(error);
         }
     }, []);
 
@@ -157,8 +154,6 @@ const MapComponent = ({ userLocation }) => {
             // service coordinates
             const longitude = parseFloat(service.longitude);
             const latitude = parseFloat(service.latitude);
-
-            console.log(idx, service.provider.avatar)
             const popupContent = `
             <div class="${styles['mini-popup']}">
                 <h2 class="${styles['popup-title']}">${service.serviceName}</h2>

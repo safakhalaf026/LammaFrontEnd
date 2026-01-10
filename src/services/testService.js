@@ -14,8 +14,6 @@ async function test() {
 
   // Step 3: Get the data from the response
   const data = response.data;
-  console.log(data)
-
   // Step 4: Return the data
   return data;
 }

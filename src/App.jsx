@@ -23,7 +23,6 @@ const App = () => {
         const data = await serviceService.index()
         setServices(data)
       } catch (err) {
-        console.log(err)
       }
     }
     if (user) getAllServices()
