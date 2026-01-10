@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { submitReview } from '../../services/reviewService'
 import styles from './ReviewForm.module.css'
+import Swal from 'sweetalert2'
 import '../../app.css'
 
 const ReviewForm = ({ serviceId, onSubmitted }) => {
@@ -17,11 +18,6 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
       return
     }
 
-    if (!comment.trim()) {
-      alert('Comment cannot be empty.')
-      return
-    }
-
     try {
       setLoading(true)
       await submitReview(serviceId, { rating: Number(rating), comment })
@@ -31,9 +27,11 @@ const ReviewForm = ({ serviceId, onSubmitted }) => {
       setComment('')
       if (onSubmitted) onSubmitted() // Refresh reviews if callback is provided
     } catch (error) {
-      const message =
-        error.response?.data?.err || error.response?.data?.error || 'Error submitting review.'
-      alert(message)
+      Swal.fire({
+        icon: "error",
+        title: "Error submitting review",
+        text: "You have already submitted a review for this service",
+      })
     } finally {
       setLoading(false)
     }

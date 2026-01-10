@@ -88,13 +88,13 @@ const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
 
       <h3 className={styles.sectionTitle}>Reviews</h3>
       <div className={styles.reviewGrid}>
-          {reviews.map((r,index) => (
-          <div key={r._id} className={styles.reviewCard}>
+          {reviews.map((eachReview,index) => (
+          <div key={eachReview._id} className={styles.reviewCard}>
             <div className={styles.stars} >
-              {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
+              {"★".repeat(eachReview.rating)}{"☆".repeat(5 - eachReview.rating)}
             </div>
-            <p className={styles.reviewText}>{r.comment}</p>
-            <span className={styles.reviewerName}>{r.customer?.displayName}</span>
+            <p className={styles.reviewText}>{eachReview.comment}</p>
+            <span className={styles.reviewerName}>Posted by: {eachReview.customer?.username}</span>
           </div>
         ))}
       </div>

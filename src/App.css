@@ -5,3 +5,57 @@
 }
 
 
+/* SweetAlert2 popup container  global stylings */
+.swal2-popup {
+  font-family: 'Inter', sans-serif;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.swal2-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2f4d;
+  margin-bottom: 8px;
+}
+
+.swal2-html-container {
+  font-size: 14px;
+  color: #444;
+  margin-top: 4px;
+}
+
+.swal2-actions {
+  margin-top: 16px;
+}
+
+.swal2-confirm {
+  background-color: #1f2f4d !important; 
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: none;
+}
+
+.swal2-confirm:hover {
+  background-color: #16223a !important;
+}
+
+.swal2-cancel {
+  background-color: #f2f2f2 !important;
+  color: #333 !important;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #e6e6e6 !important;
+}
+
+.swal2-icon {
+  transform: scale(0.85);
+}
