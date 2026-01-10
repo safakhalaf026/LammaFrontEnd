@@ -2,9 +2,9 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
-
+import 'animate.css';
 import MapComponent from './MapComponent' 
-import "./Dashboard.css"
+import styles from "./Dashboard.module.css"
 
 const Dashboard = () => {
     const navigate = useNavigate()
@@ -45,10 +45,9 @@ const Dashboard = () => {
         navigate('/service/new')
     };
 
-    //لاخذ موقع المستخدم و تتبعه
     useEffect(() => {
-        // طلب ومراقبة موقع المستخدم بشكل مستمر
-        const watchId = navigator.geolocation.watchPosition(   //watchPosition لتتبع الموقع باستمرار 
+        // retrieve and track logged in user location
+        const watchId = navigator.geolocation.watchPosition(   
             (position) => {
                 setUserLocation({
                     lat: position.coords.latitude,
@@ -63,7 +62,7 @@ const Dashboard = () => {
             }
         );
 
-        //   ايقاف المراقبه عند الخروج من الصفحه
+        // stop tracking location
         return () => {
             navigator.geolocation.clearWatch(watchId);
         };
@@ -71,32 +70,38 @@ const Dashboard = () => {
 
 
     return (
-        <>
-            <div className="layout-container">
+       
+    <>
+        <div className={styles['layout-container']}>
+           <div className={`${styles['header-info']} animate__animated animate__fadeInDown`}>       
+                 <h1>
+                    Welcome, <span>{user?.displayName}</span>
+                </h1>
 
-                <div className="header-info">
-                <h1>Welcome, {user?.displayName} </h1>
                 <p>
-                    Discover available services around you using the interactive map below.
-                    Browse, compare, and choose the service that best fits your needs.
+                    Find trusted services around you using the interactive map.
+                    Compare options and choose what fits you best.
                 </p>
                 </div>
-            <div className="services">
-                  {user?.role === 'Service Provider' && (
-                    <button 
-                        onClick={() => handleAddService() } >
-                     Add New Service        
-                   </button>
+
+        <div className={`${styles.services} animate__animated animate__fadeInDown`}>            
+                {user?.role === 'Service Provider' && (
+                    <button onClick={() => handleAddService()}>
+                        Add New Service        
+                    </button>
                 )}
             </div>
 
-            <div className="map-area">
+           
+            <div className={`${styles['map-area']} animate__animated animate__slideInUp`}>
                 <MapComponent userLocation={userLocation} />
             </div>
-            </div>
-
-        </>
-    )
+            
+        </div>
+    </>
+);
+       
+    
 }
 
 export default Dashboard

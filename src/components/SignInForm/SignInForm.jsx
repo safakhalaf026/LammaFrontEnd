@@ -2,7 +2,6 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 import { signIn } from '../../services/authService'; // this is excplicitly importing the signIn function from authService
 import { UserContext } from '../../contexts/UserContext';
-// import './SignInForm.css'
 import styles from './SignInForm.module.css'
 import '../../app.css'
 

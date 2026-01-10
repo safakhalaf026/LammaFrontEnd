@@ -6,14 +6,20 @@
 
 .nav {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   padding: 12px 24px;
   border-bottom: 1px solid #e5e5e5;
   background-color: #ffffff;
+  border-bottom: 2px solid #2563eb;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.12);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Inter', sans-serif;
 }
 
-.logo{
+.logo {
   display: flex;
   align-items: center;
 }
@@ -23,7 +29,7 @@
   height: 50px;
 }
 
-.logo h1{
+.logo h1 {
   font-size: 20px;
   font-weight: 600;
   color: #333;
