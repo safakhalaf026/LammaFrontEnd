@@ -5,6 +5,8 @@ import { UserContext } from '../../contexts/UserContext'
 import * as serviceService from '../../services/serviceService'
 import * as reviewService from '../../services/reviewService'
 import styles from './ServiceDetails.module.css' 
+import 'animate.css';
+
 
 const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
   const navigate = useNavigate()
@@ -52,11 +54,11 @@ const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
   const isServiceManager = user?.role === 'Service Provider' && isOwner
 
   return (
-    <div className={styles.container}>
-       <div id={styles['card-header']}> 
+      <div className={`${styles.container} animate__animated animate__fadeIn`}>
+         <div id={styles['card-header']}> 
               <img 
-                  src={service.provider.avatar } 
-                  alt={service.provider.username} 
+                 src={service.provider.avatar || "https://i.postimg.cc/2qtsw-YGj/af.png"}
+                 alt={service.provider.username}  
                   className={styles.avatar}
               />
               <p>{service.provider.displayName} </p>
@@ -86,9 +88,9 @@ const ServiceDetails = ({ findServicesToUpdate, deleteService }) => {
 
       <h3 className={styles.sectionTitle}>Reviews</h3>
       <div className={styles.reviewGrid}>
-          {reviews.map((r) => (
+          {reviews.map((r,index) => (
           <div key={r._id} className={styles.reviewCard}>
-            <div className={styles.stars}>
+            <div className={styles.stars} >
               {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
             </div>
             <p className={styles.reviewText}>{r.comment}</p>

@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import * as testService from '../../services/testService'
 import { useNavigate } from 'react-router-dom'
-
+import 'animate.css';
 import MapComponent from './MapComponent' 
 import styles from "./Dashboard.module.css"
 
@@ -74,9 +74,8 @@ const Dashboard = () => {
        
     <>
         <div className={styles['layout-container']}>
-         <div className={styles['header-info']}>
-
-                <h1>
+           <div className={`${styles['header-info']} animate__animated animate__fadeInDown`}>       
+                 <h1>
                     Welcome, <span>{user?.displayName}</span>
                 </h1>
 
@@ -86,7 +85,7 @@ const Dashboard = () => {
                 </p>
                 </div>
 
-            <div className={styles.services}>
+        <div className={`${styles.services} animate__animated animate__fadeInDown`}>            
                 {user?.role === 'Service Provider' && (
                     <button onClick={() => handleAddService()}>
                         Add New Service        
@@ -95,7 +94,7 @@ const Dashboard = () => {
             </div>
 
            
-            <div className={styles['map-area']}>
+            <div className={`${styles['map-area']} animate__animated animate__slideInUp`}>
                 <MapComponent userLocation={userLocation} />
             </div>
             

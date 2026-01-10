@@ -19,8 +19,7 @@
     0 30px 60px rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(241, 245, 249, 0.8);
   
-  animation: premiumFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
+  
 }
 
 .header-info h1 {
@@ -52,8 +51,7 @@
   justify-content: center;
   margin-top: -5px;
   z-index: 10;
-  animation: premiumFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-  opacity: 0;
+ 
 }
 
 .services button {
@@ -83,21 +81,9 @@
   background: #ffffff;
   border: 10px solid #ffffff; 
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
-  
-  animation: premiumFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-  opacity: 0;
 }
 
-@keyframes premiumFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(25px) scale(0.98);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+
 
 @media (max-width: 768px) {
   .layout-container {
