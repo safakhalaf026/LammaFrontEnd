@@ -48,6 +48,7 @@ function ServiceForm({ updateService, serviceToUpdate }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+ 
         try {
             const position = await handleCoords()
             const lat = String(position.coords.latitude)
