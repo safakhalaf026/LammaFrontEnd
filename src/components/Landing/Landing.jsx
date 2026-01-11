@@ -1,12 +1,14 @@
 import styles from './Landing.module.css'
 import '../../app.css'
 import { useNavigate } from 'react-router'
+import 'animate.css'
+
 
 const Landing = () => {
   const navigate = useNavigate()
 
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} animate__animated animate__zoomInRight`}>
 
       <div className={styles.features}>
         <p>Discover services nearby</p>
